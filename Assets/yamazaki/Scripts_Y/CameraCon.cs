@@ -7,8 +7,7 @@ using UnityEngine;
 public class CameraCon : MonoBehaviour
 {
     //キャラクターのTransform
-    [SerializeField]
-    private Transform charaLookAtPosition;
+    public Transform charaLookAtPosition;
     //カメラの移動スピード
     [SerializeField]
     private float cameraMoveSpeed = 2f;
@@ -25,7 +24,7 @@ public class CameraCon : MonoBehaviour
     //[SerializeField]
     //LayerMask abstacleLayer;
 
-
+    
     // Update is called once per frame
     void Update()
     {

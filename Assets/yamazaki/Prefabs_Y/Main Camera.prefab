@@ -95,7 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a4c551b274d7714e87f2f83191fbb53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charaLookAtPosition: {fileID: 0}
+  charaLookAtPosition: {fileID: 5817771194488945085, guid: a780da896ca904035b33f90d86b0ba4d,
+    type: 3}
   cameraMoveSpeed: 2.8
   cameraRotateSpeed: 120
   basePos: {x: 0, y: 2, z: 1}

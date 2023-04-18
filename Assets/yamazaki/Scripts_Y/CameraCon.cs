@@ -24,7 +24,12 @@ public class CameraCon : MonoBehaviour
     //[SerializeField]
     //LayerMask abstacleLayer;
 
-    
+
+    public void setTransform(Transform transform)
+    {
+        charaLookAtPosition = transform;
+    }
+
     // Update is called once per frame
     void Update()
     {

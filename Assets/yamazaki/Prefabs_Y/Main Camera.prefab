@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1465415114262540941}
   - component: {fileID: 1465415114262540946}
   - component: {fileID: 1465415114262540943}
+  - component: {fileID: 1172696158}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -95,9 +96,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a4c551b274d7714e87f2f83191fbb53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charaLookAtPosition: {fileID: 5817771194488945085, guid: a780da896ca904035b33f90d86b0ba4d,
-    type: 3}
+  charaLookAtPosition: {fileID: 0}
   cameraMoveSpeed: 2.8
   cameraRotateSpeed: 120
   basePos: {x: 0, y: 2, z: 1}
   baseRot: {x: 0, y: 0.6, z: 0}
+--- !u!114 &1172696158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465415114262540947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540faabfa5234954e90338048b691801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 7205719038485501694, guid: a780da896ca904035b33f90d86b0ba4d, type: 3}
+  Enemy: {fileID: 0}
+  cameraCon: {fileID: 1465415114262540943}
+  mapSize: 7

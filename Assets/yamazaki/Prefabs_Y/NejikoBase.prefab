@@ -996,11 +996,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72915c8ea0fe8b54393624450a3dcdc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 15
+  gravity: 12
   speed: 3.5
-  rotSpeed: 250
+  rotSpeed: 200
   jumpPower: 5.5
   backSpeed: 0.5
+  knockBack: 10
 --- !u!143 &802762928
 CharacterController:
   m_ObjectHideFlags: 0

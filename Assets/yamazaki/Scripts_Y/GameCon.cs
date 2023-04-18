@@ -5,7 +5,8 @@ using UnityEngine;
 public class GameCon : MonoBehaviour
 {
     [SerializeField] GameObject player;
-    [SerializeField] GameObject Enemy;
+    [SerializeField] GameObject enemy;
+    [SerializeField] GameObject goal;
     [SerializeField] CameraCon cameraCon;
     //[SerializeField] MazeMake mazeMake;//マップ生成スクリプト
     [SerializeField] int mapSize;
@@ -23,7 +24,8 @@ public class GameCon : MonoBehaviour
         cameraCon.setTransform(insPlayer.transform);
         //mapSize = mazeMake.getMapSize();//マップ生成スクリプトからマップサイズを取得
         insPlayer.transform.position = ObjectPosition(mapSize);
-        //SetObject(Enemy);//エネミー生成
+        //InsObject(goal);//ゴール生成
+        //InsObject(enemy);//エネミー生成
 
     }
 
@@ -41,7 +43,7 @@ public class GameCon : MonoBehaviour
         Vector3 posi = new Vector3(x, insPosiY, z);
         return posi;
     }
-    void SetObject(GameObject gameObject)//オブジェクト（エネミー）をマップに追加
+    void InsObject(GameObject gameObject)//オブジェクト（エネミー）をマップに追加
     {
         Vector3 posi = new Vector3();
         while (true)//プレイヤーとエネミーのポジションが被らなくなるまで繰り返す

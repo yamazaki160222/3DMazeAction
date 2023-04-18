@@ -99,8 +99,8 @@ MonoBehaviour:
   charaLookAtPosition: {fileID: 0}
   cameraMoveSpeed: 2.8
   cameraRotateSpeed: 120
-  basePos: {x: 0, y: 2, z: 1}
-  baseRot: {x: 0, y: 0.6, z: 0}
+  basePos: {x: 0, y: 2, z: 1.8}
+  baseRot: {x: 0, y: 1.1, z: 0}
 --- !u!114 &1172696158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 7205719038485501694, guid: a780da896ca904035b33f90d86b0ba4d, type: 3}
   Enemy: {fileID: 0}
+  Goal: {fileID: 0}
   cameraCon: {fileID: 1465415114262540943}
   mapSize: 7
   insPosiY: 1.5

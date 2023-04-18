@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameCon : MonoBehaviour
 {
     [SerializeField] GameObject player;
     [SerializeField] GameObject enemy;
     [SerializeField] GameObject goal;
+    [SerializeField] CharCon_Y charCon;
     [SerializeField] CameraCon cameraCon;
     //[SerializeField] MazeMake mazeMake;//マップ生成スクリプト
     [SerializeField] int mapSize;
@@ -22,6 +24,7 @@ public class GameCon : MonoBehaviour
     {
         insPlayer = Instantiate(player);
         cameraCon.setTransform(insPlayer.transform);
+        charCon.SetPlayer(insPlayer);
         //mapSize = mazeMake.getMapSize();//マップ生成スクリプトからマップサイズを取得
         insPlayer.transform.position = ObjectPosition(mapSize);
         //InsObject(goal);//ゴール生成
@@ -34,6 +37,7 @@ public class GameCon : MonoBehaviour
     {
         GameTime();
         ConsoleTime();
+
     }
 
     Vector3 ObjectPosition(int mapSize)//プレイヤー、エネミーのポジションを設定
@@ -70,5 +74,9 @@ public class GameCon : MonoBehaviour
             Debug.Log(time + "秒");
             consoleTime = time;
         }
+    }
+    void ReturnToTitle()
+    {
+        SceneManager.LoadScene("");
     }
 }

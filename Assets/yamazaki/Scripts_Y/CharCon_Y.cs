@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CharCon_Y : MonoBehaviour
 {
+    [SerializeField]
+    GameObject player;
     Animator animator;
     CharacterController cc;
     Vector3 dir = Vector3.zero;
@@ -22,25 +24,10 @@ public class CharCon_Y : MonoBehaviour
 
     // Start is called before the first frame update
 
-    public int Life()
-    {
-        Debug.Log("life:" + life);
-        return life;
-    }
-    bool IsStun()
-    {
-        if(recoverTime > 0.0f || life <= 0)
-        {
-            Debug.Log("IsStun:true");
-            return true;
-        }
-        Debug.Log("IsStun:false");
-        return false;
-    }
+    
     void Start()
     {
-        animator = GetComponent<Animator>();
-        cc = GetComponent<CharacterController>();
+        
     }
 
     // Update is called once per frame
@@ -61,7 +48,7 @@ public class CharCon_Y : MonoBehaviour
             Debug.Log("isGrounded");
             float rot = Input.GetAxis("Horizontal");
             animator.SetBool("run",acc!=0f||rot!=0f);
-            transform.Rotate(0, rot * rotSpeed * Time.deltaTime, 0);
+            player.transform.Rotate(0, rot * rotSpeed * Time.deltaTime, 0);
 
             
         }
@@ -74,7 +61,7 @@ public class CharCon_Y : MonoBehaviour
         {
             acc *= backSpeed;
         }
-        cc.Move((transform.forward * acc * speed + dir) * Time.deltaTime);
+        cc.Move((player.transform.forward * acc * speed + dir) * Time.deltaTime);
 
 
         /*
@@ -85,6 +72,13 @@ public class CharCon_Y : MonoBehaviour
         */
     }
 
+    public void SetPlayer(GameObject gameObject)
+    {
+        player = gameObject;
+        animator = player.GetComponent<Animator>();
+        cc = player.GetComponent<CharacterController>();
+    }
+
     public void Jump()
     {
         if (IsStun()) return;
@@ -93,6 +87,21 @@ public class CharCon_Y : MonoBehaviour
             dir.y = jumpPower;
             animator.SetTrigger("jump");
         }
+    }
+    public int Life()
+    {
+        Debug.Log("life:" + life);
+        return life;
+    }
+    bool IsStun()
+    {
+        if (recoverTime > 0.0f || life <= 0)
+        {
+            Debug.Log("IsStun:true");
+            return true;
+        }
+        Debug.Log("IsStun:false");
+        return false;
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)

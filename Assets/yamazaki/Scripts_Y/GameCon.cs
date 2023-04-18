@@ -9,7 +9,7 @@ public class GameCon : MonoBehaviour
     [SerializeField] CameraCon cameraCon;
     //[SerializeField] MazeMake mazeMake;//マップ生成スクリプト
     [SerializeField] int mapSize;
-
+    public float insPosiY;
     float time;
     float consoleTime = 0;//デバッグ用
     GameObject insPlayer;
@@ -38,7 +38,7 @@ public class GameCon : MonoBehaviour
     {
         int x = Random.Range(0, ((mapSize + 1) / 2) * 2);
         int z = Random.Range(0, ((mapSize + 1) / 2) * 2); ;
-        Vector3 posi = new Vector3(x, 1.5f, z);
+        Vector3 posi = new Vector3(x, insPosiY, z);
         return posi;
     }
     void SetObject(GameObject gameObject)//オブジェクト（エネミー）をマップに追加

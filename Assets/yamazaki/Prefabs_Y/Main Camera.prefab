@@ -117,3 +117,4 @@ MonoBehaviour:
   Enemy: {fileID: 0}
   cameraCon: {fileID: 1465415114262540943}
   mapSize: 7
+  insPosiY: 1.5

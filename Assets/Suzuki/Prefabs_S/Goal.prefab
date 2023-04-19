@@ -9456,7 +9456,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c37342646055e242b115622ee1c10c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoalEffect: {fileID: 0}
+  GoalEffect: {fileID: 6320764734043755677, guid: a08f305751e5471458875e1ff3e3ca88,
+    type: 3}
   endFlg: 0
   wait: 0
 --- !u!1 &4715629849626808186

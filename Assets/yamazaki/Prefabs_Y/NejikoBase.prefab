@@ -941,6 +941,7 @@ GameObject:
   - component: {fileID: 5817771194488945085}
   - component: {fileID: 4988814555008347992}
   - component: {fileID: 802762928}
+  - component: {fileID: 114444296355147160}
   m_Layer: 0
   m_Name: NejikoBase
   m_TagString: Player
@@ -1001,6 +1002,26 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.74, z: 0}
+--- !u!114 &114444296355147160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7205719038485501694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72915c8ea0fe8b54393624450a3dcdc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 20
+  speed: 4
+  rotSpeed: 300
+  jumpPower: 8
+  backSpeed: 0.5
+  knockBack: 0
+  isGoal: 0
+  stunDuration: 0.5
 --- !u!1 &7390637480556313672
 GameObject:
   m_ObjectHideFlags: 0

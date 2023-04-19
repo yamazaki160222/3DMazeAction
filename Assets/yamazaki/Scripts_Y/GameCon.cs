@@ -8,7 +8,6 @@ public class GameCon : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] GameObject enemy;
     [SerializeField] GameObject goal;
-    [SerializeField] CharCon_Y charCon;
     [SerializeField] CameraCon cameraCon;
     //[SerializeField] MazeMake mazeMake;//マップ生成スクリプト
     [SerializeField] int mapSize;
@@ -16,6 +15,7 @@ public class GameCon : MonoBehaviour
     float time;
     float consoleTime = 0;//デバッグ用
     GameObject insPlayer;
+    CharCon_Y  charCon;
 
 
 
@@ -24,7 +24,10 @@ public class GameCon : MonoBehaviour
     {
         insPlayer = Instantiate(player);
         cameraCon.setTransform(insPlayer.transform);
-        charCon.SetPlayer(insPlayer);
+        charCon = insPlayer.GetComponent<CharCon_Y>();
+        InsObject(enemy);
+        InsObject(goal);
+        
         //mapSize = mazeMake.getMapSize();//マップ生成スクリプトからマップサイズを取得
         insPlayer.transform.position = ObjectPosition(mapSize);
         //InsObject(goal);//ゴール生成
@@ -36,8 +39,8 @@ public class GameCon : MonoBehaviour
     void Update()
     {
         GameTime();
-        ConsoleTime();
-
+        //ConsoleTime();//デバッグ用
+        Goal();
     }
 
     Vector3 ObjectPosition(int mapSize)//プレイヤー、エネミーのポジションを設定
@@ -49,18 +52,26 @@ public class GameCon : MonoBehaviour
     }
     void InsObject(GameObject gameObject)//オブジェクト（エネミー）をマップに追加
     {
-        Vector3 posi = new Vector3();
-        while (true)//プレイヤーとエネミーのポジションが被らなくなるまで繰り返す
+        if (gameObject != null)
         {
-            posi = ObjectPosition(mapSize);
-            if (posi.x != insPlayer.transform.position.x &&
-                posi.z != insPlayer.transform.position.z)
+            Vector3 posi = new Vector3();
+            while (true)//プレイヤーとエネミーのポジションが被らなくなるまで繰り返す
             {
-                break;
+                posi = ObjectPosition(mapSize);
+                if (posi.x != insPlayer.transform.position.x &&
+                    posi.z != insPlayer.transform.position.z)
+                {
+                    break;
+                }
             }
+            GameObject e = Instantiate(gameObject);
+            e.transform.position = posi;
         }
-        GameObject e = Instantiate(gameObject);
-        e.transform.position = posi;
+        else
+        {
+            Debug.Log("insObject_null");
+        }
+       
     }
     float GameTime()//実時間取得
     {
@@ -78,5 +89,20 @@ public class GameCon : MonoBehaviour
     void ReturnToTitle()
     {
         SceneManager.LoadScene("");
+    }
+    void Goal()
+    {
+        if (charCon.GetIsGoal())
+        {
+            Debug.Log("GameCon_Goal:" + charCon.GetIsGoal());
+            charCon.StartGoalAnim();
+        }
+    }
+    void GameOver()
+    {
+        if (charCon.Life() >= charCon.DefaultLife())
+        {
+            Debug.Log("GameCon_GameOver");
+        }
     }
 }

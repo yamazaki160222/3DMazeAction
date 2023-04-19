@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CharCon_Y : MonoBehaviour
 {
-    [SerializeField]
-    GameObject player;
     Animator animator;
     CharacterController cc;
     Vector3 dir = Vector3.zero;
@@ -15,68 +13,84 @@ public class CharCon_Y : MonoBehaviour
     public float jumpPower = 8f;
     public float backSpeed = 0.5f;
     public float knockBack;
+    public float stunDuration = 0.5f;
 
     const int defaultLife = 3;
-    const float stunDuration = 0.5f;
 
-    int life = defaultLife;
+    int life = 0;
     float recoverTime = 0.0f;
+    bool isGoal = false;
+    bool isGameOver = false;
 
     // Start is called before the first frame update
 
     
     void Start()
     {
-        
+        cc = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        dir.y -= gravity * Time.deltaTime;
-        Life();
-        float acc = Input.GetAxis("Vertical");
-
-        if (IsStun())
-        {
-            dir.x = 0f;
-            dir.z = 0f;
-            recoverTime -= Time.deltaTime;
-        }
-        if (cc.isGrounded)
-        {
-            Debug.Log("isGrounded");
-            float rot = Input.GetAxis("Horizontal");
-            animator.SetBool("run",acc!=0f||rot!=0f);
-            player.transform.Rotate(0, rot * rotSpeed * Time.deltaTime, 0);
-
-            
-        }
-        if (Input.GetButtonDown("Jump"))
-        {
-            Debug.Log("GetButtonDown_Jump");
-            Jump();
-        }
-        if (acc < 0)
-        {
-            acc *= backSpeed;
-        }
-        cc.Move((player.transform.forward * acc * speed + dir) * Time.deltaTime);
-
-
         /*
         if (cc.isGrounded)
         {
             dir.y = 0;
         }
         */
+        dir.y -= gravity * Time.deltaTime;
+        Life();
+        float acc = 0;
+        if (!IsStun())
+        {
+            acc = Input.GetAxis("Vertical");
+        }
+
+        if (IsStun() && !GetIsGoal())
+        {
+            dir.x = 0f;
+            dir.z = 0f;
+            recoverTime -= Time.deltaTime;
+        }
+        if (!GetIsGoal())
+        {
+            Rotate(acc);
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Debug.Log("GetButtonDown_Jump");
+                Jump();
+            }
+            if (Input.GetKeyDown(KeyCode.G))//デバッグ用
+            {
+                SetIsGoal(true);
+            }
+            Move(acc);
+        }
     }
 
-    public void SetPlayer(GameObject gameObject)
+
+    public void Move(float acc)
     {
-        player = gameObject;
-        animator = player.GetComponent<Animator>();
-        cc = player.GetComponent<CharacterController>();
+        if (acc < 0)
+        {
+            acc *= backSpeed;
+        }
+        cc.Move((transform.forward * acc * speed + dir) * Time.deltaTime);
+
+    }
+    public void Rotate(float acc)
+    {
+        if (cc.isGrounded)
+        {
+            Debug.Log("isGrounded");
+            float rot = Input.GetAxis("Horizontal");
+            animator.SetBool("run", acc != 0f || rot != 0f);
+            transform.Rotate(0, rot * rotSpeed * Time.deltaTime, 0);
+        }
     }
 
     public void Jump()
@@ -90,12 +104,16 @@ public class CharCon_Y : MonoBehaviour
     }
     public int Life()
     {
-        Debug.Log("life:" + life);
+        Debug.Log("life:" + life +"/"+defaultLife);
         return life;
+    }
+    public int DefaultLife()
+    {
+        return defaultLife;
     }
     bool IsStun()
     {
-        if (recoverTime > 0.0f || life <= 0)
+        if (recoverTime > 0.0f)
         {
             Debug.Log("IsStun:true");
             return true;
@@ -103,18 +121,67 @@ public class CharCon_Y : MonoBehaviour
         Debug.Log("IsStun:false");
         return false;
     }
+    public bool GetIsGoal()
+    {
+        Debug.Log("isGoal:" + isGoal);
+        return isGoal;
+    }
+    public void SetIsGoal(bool b)
+    {
+        isGoal = b;
+    }
+    public bool GetIsGameOver()
+    {
+        return isGameOver;
+    }
+    public void SetIsGameOver(bool b)
+    {
+        isGameOver = b;
+    }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (IsStun()) return;
         if (hit.gameObject.tag == "Enemy")
         {
-            life--;
+            life++;
             recoverTime = stunDuration;
             //cc.Move((transform.forward * -1 * speed + dir) * Time.deltaTime);
             animator.SetTrigger("damage");
 
             //Destroy(hit.gameObject);
         }
+
+        if (hit.gameObject.tag == "Goal")
+        {
+            SetIsGoal(true);
+            animator.SetBool("run", false);
+        }
+    }
+    public void StartGoalAnim()
+    {
+        StartCoroutine("GoalAnim");
+    }
+    IEnumerator GoalAnim()
+    {
+        if (cc.isGrounded)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                dir.y -= gravity * Time.deltaTime;
+                Debug.Log("dir.y:" + dir.y); 
+                if (cc.isGrounded)
+                {
+                    dir.y = jumpPower;
+                    animator.SetBool("goal",true);
+                }
+                Debug.Log("dir.y:" + dir.y);
+                Move(0);
+                Debug.Log("GoalAnim:"+ i);
+                yield return new WaitForSeconds(1f);
+            }
+        }
+        animator.SetBool("goal", false);
+        SetIsGoal(false);
     }
 }

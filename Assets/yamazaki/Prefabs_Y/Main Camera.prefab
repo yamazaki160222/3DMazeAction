@@ -101,6 +101,10 @@ MonoBehaviour:
   cameraRotateSpeed: 120
   basePos: {x: 0, y: 2, z: 1.8}
   baseRot: {x: 0, y: 1.1, z: 0}
+  abstacleLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  ContactPos: 1.3
 --- !u!114 &1172696158
 MonoBehaviour:
   m_ObjectHideFlags: 0

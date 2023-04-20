@@ -21,8 +21,10 @@ public class CameraCon : MonoBehaviour
     [SerializeField]
     private Vector3 baseRot = new Vector3(0f, 0f, 0f);
     //障害物とするレイヤー
-    //[SerializeField]
-    //LayerMask abstacleLayer;
+    [SerializeField]
+    LayerMask abstacleLayer;
+    [SerializeField]
+    float ContactPos = 1.3f;
 
 
     public void setTransform(Transform transform)
@@ -43,7 +45,7 @@ public class CameraCon : MonoBehaviour
             cameraPos,
             cameraMoveSpeed * Time.deltaTime);
 
-        /*
+        
         RaycastHit hit;
         //キャラクターとカメラの間に障害物があったら障害物の位置にカメラを移動させる
         if (Physics.Linecast(
@@ -52,7 +54,11 @@ public class CameraCon : MonoBehaviour
             out hit,
             abstacleLayer))
         {
-            transform.position = hit.point;
+            Vector3 dir = hit.point;
+            dir.y *= ContactPos;
+            transform.position = dir;
+
+            Debug.Log("hitpoint:" + hit.point);
         }
         //レイを視覚的に確認
         Debug.DrawLine(
@@ -61,7 +67,7 @@ public class CameraCon : MonoBehaviour
             Color.red,
             0f,
             false);
-        */
+        
 
         //　スピードを考慮しない場合はLookAtで出来る
         //transform.LookAt(charaTra.position);

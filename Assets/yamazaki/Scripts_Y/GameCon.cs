@@ -7,6 +7,7 @@ public class GameCon : MonoBehaviour
 {
     [SerializeField] GameObject player;
     [SerializeField] GameObject enemy;
+    [SerializeField] List<GameObject> enemys;
     [SerializeField] GameObject goal;
     [SerializeField] CameraCon cameraCon;
     //[SerializeField] MazeMake mazeMake;//マップ生成スクリプト
@@ -60,8 +61,8 @@ public class GameCon : MonoBehaviour
             while (true)//プレイヤーとエネミーのポジションが被らなくなるまで繰り返す
             {
                 posi = ObjectPosition(mapSize,f);
-                if (posi.x != insPlayer.transform.position.x &&
-                    posi.z != insPlayer.transform.position.z)
+                if (!(posi.x == insPlayer.transform.position.x &&
+                    posi.z == insPlayer.transform.position.z))
                 {
                     break;
                 }

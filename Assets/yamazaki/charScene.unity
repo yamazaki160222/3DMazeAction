@@ -408,7 +408,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 97772542415565822}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 1.5, z: 3}
+  m_LocalPosition: {x: 3, y: 1.5, z: 1}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -436,7 +436,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startDistance: 2
   hiddenDisanta: 1
-  offset: 1
+  offset_y: -1
+  offset_z: -1
 --- !u!1 &97772542415565822
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,7 +474,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2746244222374122117}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 1.5, z: 3}
+  m_LocalPosition: {x: 3, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -543,7 +544,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startDistance: 2
   hiddenDisanta: 1
-  offset: 1
+  offset_y: -1
+  offset_z: -1
 --- !u!1 &2746244222374122117
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,7 +580,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startDistance: 2
   hiddenDisanta: 1
-  offset: 1
+  offset_y: -1
+  offset_z: -1
 --- !u!33 &3369782677409198364
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -595,7 +598,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3369782677409198561}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 1.5, z: 0}
+  m_LocalPosition: {x: 1, y: 1.5, z: 1}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -757,7 +760,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startDistance: 2
   hiddenDisanta: 1
-  offset: 1
+  offset_y: -1
+  offset_z: -1
 --- !u!1 &5600595124105896334
 GameObject:
   m_ObjectHideFlags: 0

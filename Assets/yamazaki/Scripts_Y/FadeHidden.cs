@@ -9,6 +9,10 @@ public class FadeHidden : MonoBehaviour
     public float offset_y = -1;
     public float offset_z = -1;
 
+    
+    //説明： 透過オブジェクトはRenderringModeをFadeに変更し
+    //本スクリプトをアタッチ
+
     // Start is called before the first frame update
     void Start()
     {

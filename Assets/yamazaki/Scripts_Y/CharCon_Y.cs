@@ -86,7 +86,6 @@ public class CharCon_Y : MonoBehaviour
     {
         if (cc.isGrounded)
         {
-            Debug.Log("isGrounded");
             float rot = Input.GetAxis("Horizontal");
             animator.SetBool("run", acc != 0f || rot != 0f);
             transform.Rotate(0, rot * rotSpeed * Time.deltaTime, 0);
@@ -118,12 +117,14 @@ public class CharCon_Y : MonoBehaviour
             Debug.Log("IsStun:true");
             return true;
         }
-        Debug.Log("IsStun:false");
         return false;
     }
     public bool GetIsGoal()
     {
-        Debug.Log("isGoal:" + isGoal);
+        if (isGoal)
+        {
+            Debug.Log("isGoal:" + isGoal);
+        }
         return isGoal;
     }
     public void SetIsGoal(bool b)
@@ -177,7 +178,7 @@ public class CharCon_Y : MonoBehaviour
                 }
                 Debug.Log("dir.y:" + dir.y);
                 Move(0);
-                Debug.Log("GoalAnim:"+ i);
+                Debug.Log("GoalAnimCount:"+ i);
                 yield return new WaitForSeconds(1f);
             }
         }

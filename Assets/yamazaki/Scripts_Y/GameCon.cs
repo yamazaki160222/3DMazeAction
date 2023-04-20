@@ -11,7 +11,9 @@ public class GameCon : MonoBehaviour
     [SerializeField] CameraCon cameraCon;
     //[SerializeField] MazeMake mazeMake;//マップ生成スクリプト
     [SerializeField] int mapSize;
-    public float insPosiY;
+    public float insPosiY_Player;
+    public float insPosiY_Enemy;
+    public float insPosiY_Goal;
     float time;
     float consoleTime = 0;//デバッグ用
     GameObject insPlayer;
@@ -25,11 +27,11 @@ public class GameCon : MonoBehaviour
         insPlayer = Instantiate(player);
         cameraCon.setTransform(insPlayer.transform);
         charCon = insPlayer.GetComponent<CharCon_Y>();
-        InsObject(enemy);
-        InsObject(goal);
+        InsObject(enemy,insPosiY_Enemy);
+        InsObject(goal,insPosiY_Goal);
         
         //mapSize = mazeMake.getMapSize();//マップ生成スクリプトからマップサイズを取得
-        insPlayer.transform.position = ObjectPosition(mapSize);
+        insPlayer.transform.position = ObjectPosition(mapSize,insPosiY_Player);
         //InsObject(goal);//ゴール生成
         //InsObject(enemy);//エネミー生成
 
@@ -43,21 +45,21 @@ public class GameCon : MonoBehaviour
         Goal();
     }
 
-    Vector3 ObjectPosition(int mapSize)//プレイヤー、エネミーのポジションを設定
+    Vector3 ObjectPosition(int mapSize,float y)//プレイヤー、エネミーのポジションを設定
     {
         int x = Random.Range(0, (mapSize + 1) / 2) * 2;
         int z = Random.Range(0, (mapSize + 1) / 2) * 2;
-        Vector3 posi = new Vector3(x, insPosiY, z);
+        Vector3 posi = new Vector3(x, y, z);
         return posi;
     }
-    void InsObject(GameObject gameObject)//オブジェクト（エネミー）をマップに追加
+    void InsObject(GameObject gameObject,float f)//オブジェクト（エネミー）をマップに追加
     {
         if (gameObject != null)
         {
             Vector3 posi = new Vector3();
             while (true)//プレイヤーとエネミーのポジションが被らなくなるまで繰り返す
             {
-                posi = ObjectPosition(mapSize);
+                posi = ObjectPosition(mapSize,f);
                 if (posi.x != insPlayer.transform.position.x &&
                     posi.z != insPlayer.transform.position.z)
                 {

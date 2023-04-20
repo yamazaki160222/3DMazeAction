@@ -114,8 +114,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 7205719038485501694, guid: a780da896ca904035b33f90d86b0ba4d, type: 3}
-  Enemy: {fileID: 0}
-  Goal: {fileID: 0}
+  enemy: {fileID: 4742120886164434809, guid: f0b636857888e4243bc42f6183bfbe37, type: 3}
+  goal: {fileID: 3561307456617316819, guid: ca6cac4969c38724bb47c36f53f0fcef, type: 3}
   cameraCon: {fileID: 1465415114262540943}
   mapSize: 7
   insPosiY: 1.5

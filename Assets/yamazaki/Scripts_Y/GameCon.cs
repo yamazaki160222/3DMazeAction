@@ -45,8 +45,8 @@ public class GameCon : MonoBehaviour
 
     Vector3 ObjectPosition(int mapSize)//プレイヤー、エネミーのポジションを設定
     {
-        int x = Random.Range(0, ((mapSize + 1) / 2) * 2);
-        int z = Random.Range(0, ((mapSize + 1) / 2) * 2); ;
+        int x = Random.Range(0, (mapSize + 1) / 2) * 2;
+        int z = Random.Range(0, (mapSize + 1) / 2) * 2;
         Vector3 posi = new Vector3(x, insPosiY, z);
         return posi;
     }

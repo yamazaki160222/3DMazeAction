@@ -44,7 +44,7 @@ public class CharCon_Y : MonoBehaviour
         dir.y -= gravity * Time.deltaTime;
         Life();
         float acc = 0;
-        if (!IsStun())
+        if (!IsStun() || !GetIsGoal())
         {
             acc = Input.GetAxis("Vertical");
         }

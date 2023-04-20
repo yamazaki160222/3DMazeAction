@@ -33,14 +33,14 @@ public class CharCon_Y : MonoBehaviour
 
         if (cc.isGrounded)
         {
-            Debug.Log("isGrounded");
+            //Debug.Log("isGrounded");
             float rot = Input.GetAxis("Horizontal");
             animator.SetBool("run",acc!=0f||rot!=0f);
             transform.Rotate(0, rot * rotSpeed * Time.deltaTime, 0);
 
             if (Input.GetButtonDown("Jump"))
             {
-                Debug.Log("GetButtonDown_Jump");
+                //Debug.Log("GetButtonDown_Jump");
                 Jump();
             }
         }

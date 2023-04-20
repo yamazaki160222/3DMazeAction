@@ -6,6 +6,8 @@ public class FadeHidden : MonoBehaviour
 {
     public float startDistance = 2;
     public float hiddenDisanta = 1;
+    public float offset_y = -1;
+    public float offset_z = -1;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +18,10 @@ public class FadeHidden : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var d = Vector3.Distance(Camera.main.transform.position, transform.position);
+        Vector3 pos = Camera.main.transform.position;
+        pos.y += offset_y;
+        pos.z += offset_z;
+        var d = Vector3.Distance(pos, transform.position);
 
         var color = this.GetComponent<Renderer>().material.color;
         if (d <= hiddenDisanta)

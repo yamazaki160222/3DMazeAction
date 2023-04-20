@@ -436,6 +436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startDistance: 2
   hiddenDisanta: 1
+  offset: 1
 --- !u!1 &97772542415565822
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,6 +543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startDistance: 2
   hiddenDisanta: 1
+  offset: 1
 --- !u!1 &2746244222374122117
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,6 +578,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startDistance: 2
   hiddenDisanta: 1
+  offset: 1
 --- !u!33 &3369782677409198364
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -754,6 +757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startDistance: 2
   hiddenDisanta: 1
+  offset: 1
 --- !u!1 &5600595124105896334
 GameObject:
   m_ObjectHideFlags: 0

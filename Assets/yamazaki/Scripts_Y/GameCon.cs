@@ -7,6 +7,7 @@ public class GameCon : MonoBehaviour
 {
     [SerializeField] GameObject player;
     [SerializeField] GameObject enemy;
+    [SerializeField] List<GameObject> enemys;
     [SerializeField] GameObject goal;
     [SerializeField] CameraCon cameraCon;
     //[SerializeField] MazeMake mazeMake;//マップ生成スクリプト

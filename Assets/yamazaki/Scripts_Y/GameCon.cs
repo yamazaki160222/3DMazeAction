@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 public class GameCon : MonoBehaviour
 {
     [SerializeField] GameObject player;
-    [SerializeField] GameObject enemy;
+    //[SerializeField] GameObject enemy;
     [SerializeField] List<GameObject> enemys;
+    [SerializeField] List<int> enemysSetPlayerNo;
     [SerializeField] GameObject goal;
     [SerializeField] CameraCon cameraCon;
     //[SerializeField] MazeMake mazeMake;//マップ生成スクリプト
@@ -28,7 +29,7 @@ public class GameCon : MonoBehaviour
         insPlayer = Instantiate(player);
         cameraCon.setTransform(insPlayer.transform);
         charCon = insPlayer.GetComponent<CharCon_Y>();
-        InsObject(enemy,insPosiY_Enemy);
+        InsObject(enemys[SetEneNo()],insPosiY_Enemy);
         InsObject(goal,insPosiY_Goal);
         
         //mapSize = mazeMake.getMapSize();//マップ生成スクリプトからマップサイズを取得
@@ -69,6 +70,7 @@ public class GameCon : MonoBehaviour
             }
             GameObject e = Instantiate(gameObject);
             e.transform.position = posi;
+            SetPlayer(e);
         }
         else
         {
@@ -76,6 +78,32 @@ public class GameCon : MonoBehaviour
         }
        
     }
+
+    int SetEneNo()
+    {
+        return Random.Range(0, enemys.Count);
+    }
+
+    //エラー回避のため、無効化しています。
+    void SetPlayer(GameObject e)
+    {
+        if (EnemyCheck(e))
+        {
+            //e.EnemyController.Player(insPlayer);
+        }
+    }
+    bool EnemyCheck(GameObject e)
+    {
+        foreach (int i in enemysSetPlayerNo)
+        {
+            if(e == enemys[i])
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     float GameTime()//実時間取得
     {
         time += Time.deltaTime;

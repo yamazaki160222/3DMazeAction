@@ -6585,6 +6585,75 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1935699440}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1936065665
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5809785688859160973, guid: 60c19f87f7f5c9741a62b02cf455da7f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809785688859160973, guid: 60c19f87f7f5c9741a62b02cf455da7f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809785688859160973, guid: 60c19f87f7f5c9741a62b02cf455da7f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809785688859160973, guid: 60c19f87f7f5c9741a62b02cf455da7f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809785688859160973, guid: 60c19f87f7f5c9741a62b02cf455da7f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809785688859160973, guid: 60c19f87f7f5c9741a62b02cf455da7f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809785688859160973, guid: 60c19f87f7f5c9741a62b02cf455da7f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809785688859160973, guid: 60c19f87f7f5c9741a62b02cf455da7f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809785688859160973, guid: 60c19f87f7f5c9741a62b02cf455da7f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809785688859160973, guid: 60c19f87f7f5c9741a62b02cf455da7f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809785688859160973, guid: 60c19f87f7f5c9741a62b02cf455da7f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809785688859520429, guid: 60c19f87f7f5c9741a62b02cf455da7f,
+        type: 3}
+      propertyPath: m_Name
+      value: Tofu
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 60c19f87f7f5c9741a62b02cf455da7f, type: 3}
 --- !u!1001 &1975866612
 PrefabInstance:
   m_ObjectHideFlags: 0

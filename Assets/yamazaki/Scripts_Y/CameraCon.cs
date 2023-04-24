@@ -23,6 +23,8 @@ public class CameraCon : MonoBehaviour
     //障害物とするレイヤー
     //[SerializeField]
     //LayerMask abstacleLayer;
+    //[SerializeField]
+    //float ContactPos = 1.3f;
 
 
     public void setTransform(Transform transform)
@@ -52,7 +54,11 @@ public class CameraCon : MonoBehaviour
             out hit,
             abstacleLayer))
         {
-            transform.position = hit.point;
+            Vector3 dir = hit.point;
+            dir.y *= ContactPos;
+            transform.position = dir;
+
+            Debug.Log("hitpoint:" + hit.point);
         }
         //レイを視覚的に確認
         Debug.DrawLine(

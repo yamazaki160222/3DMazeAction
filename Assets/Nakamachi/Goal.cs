@@ -25,6 +25,13 @@ public class Goal : MonoBehaviour
     }
     void PlayerGoal()
     {
-        GoalEffect.SetActive(true);
+        if(GoalEffect != null)
+        {
+            GoalEffect.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("GoalEffect:null");
+        }
     }
 }

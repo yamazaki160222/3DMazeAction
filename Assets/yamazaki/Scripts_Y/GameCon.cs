@@ -29,22 +29,20 @@ public class GameCon : MonoBehaviour
         insPlayer = Instantiate(player);
         cameraCon.setTransform(insPlayer.transform);
         charCon = insPlayer.GetComponent<CharCon_Y>();
-        InsObject(enemys[SetEneNo()],insPosiY_Enemy);
-        InsObject(goal,insPosiY_Goal);
+        InsObject(enemys[SetEneNo()],insPosiY_Enemy);//エネミー生成
+        InsObject(goal,insPosiY_Goal);//ゴール生成
         
         //mapSize = mazeMake.getMapSize();//マップ生成スクリプトからマップサイズを取得
         insPlayer.transform.position = ObjectPosition(mapSize,insPosiY_Player);
-        //InsObject(goal);//ゴール生成
-        //InsObject(enemy);//エネミー生成
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        GameTime();
+        //GameTime();
         //ConsoleTime();//デバッグ用
-        Goal();
+        //Goal();
     }
 
     Vector3 ObjectPosition(int mapSize,float y)//プレイヤー、エネミーのポジションを設定
@@ -58,18 +56,8 @@ public class GameCon : MonoBehaviour
     {
         if (gameObject != null)
         {
-            Vector3 posi = new Vector3();
-            while (true)//プレイヤーとエネミーのポジションが被らなくなるまで繰り返す
-            {
-                posi = ObjectPosition(mapSize,f);
-                if (!(posi.x == insPlayer.transform.position.x &&
-                    posi.z == insPlayer.transform.position.z))
-                {
-                    break;
-                }
-            }
             GameObject e = Instantiate(gameObject);
-            e.transform.position = posi;
+            e.transform.position = insPosiCheck(f);
             SetPlayer(e);
         }
         else
@@ -77,6 +65,20 @@ public class GameCon : MonoBehaviour
             Debug.Log("insObject_null");
         }
        
+    }
+    Vector3 insPosiCheck(float f)
+    {
+        Vector3 posi = new Vector3();
+        while (true)//プレイヤーとエネミーのポジションが被らなくなるまで繰り返す
+        {
+            posi = ObjectPosition(mapSize, f);
+            if (posi.x != insPlayer.transform.position.x || posi.y != insPlayer.transform.position.y)
+
+            {
+                break;
+            }
+        }
+        return posi;
     }
 
     int SetEneNo()
@@ -89,7 +91,7 @@ public class GameCon : MonoBehaviour
     {
         if (EnemyCheck(e))
         {
-            //e.EnemyController.Player(insPlayer);
+            //e.Player(insPlayer);
         }
     }
     bool EnemyCheck(GameObject e)

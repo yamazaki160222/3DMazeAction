@@ -10,6 +10,7 @@ public class EnemyChese : MonoBehaviour
     bool EnemyEye;//視界方向にいるか
     public float chasetimeLimit = 2.0f;//目標を見失ってから追跡を続ける時間
     float chesetime;//目標を見失ってからの経過時間
+    bool isOpen;
 
     void Start()
     {

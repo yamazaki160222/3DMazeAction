@@ -6,11 +6,18 @@ public class EnemyController_S : MonoBehaviour
 {
     //public float walkSpeed;
     //public int moveRange;       //原点からの移動範囲（前後）
+    public GameObject player;
 
     GameObject enemy;
     //Vector3 origin;     //初期位置
     Animator animator;
     bool isOpen;        //進行方向が開けているかどうか
+
+    public GameObject Player
+    {
+        get => this.player;
+        set => this.player = value;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +34,7 @@ public class EnemyController_S : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         //Debug.Log("衝突検知");
-        if(other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Goal"))
+        if(other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Goal") || other.gameObject.CompareTag("Enemy"))
         {
             //Debug.Log("これ以上進めない");
             isOpen = false;
@@ -37,12 +44,17 @@ public class EnemyController_S : MonoBehaviour
     
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Goal"))
+        if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Goal") || other.gameObject.CompareTag("Enemy"))
         {
             //Debug.Log("回転します");
             Transform eneTra = enemy.transform;
 
-            if (Random.Range(0, 2) == 1)
+            int GetArg(int r) => r == 1 ? 45 : -45;
+            Quaternion toRoll = Quaternion.AngleAxis(GetArg(Random.Range(0, 2)), Vector3.up);
+            eneTra.rotation *= toRoll;
+
+            /*
+            if (Random.Range(0, 2) == 1) 
             {
                 //Debug.Log("右回転");
                 Quaternion toRoll = Quaternion.AngleAxis(45, Vector3.up);
@@ -54,13 +66,14 @@ public class EnemyController_S : MonoBehaviour
                 Quaternion toRoll = Quaternion.AngleAxis(-45, Vector3.up);
                 eneTra.rotation *= toRoll;
             }
+            */
         }
     }
     
     
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Goal"))
+        if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Goal") || other.gameObject.CompareTag("Enemy"))
         {
             //Debug.Log("前進できる");
             isOpen = true;

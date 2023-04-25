@@ -34,8 +34,8 @@ public class GameCon : MonoBehaviour
 
         InsPlayer();
         insObjList = new List<GameObject>();
+        InsObject(goal, insPosiY_Goal);//ゴール生成
         InsEnemy();//エネミー生成
-        InsObject(goal,insPosiY_Goal);//ゴール生成
 
         /*for(int i = 0; i < 10000; i++)//デバッグ用
         {
@@ -100,12 +100,50 @@ public class GameCon : MonoBehaviour
             Debug.Log("playerが設定されていません");
         }
     }
+    void insGoal()
+    {
+        Vector3 posi = new Vector3();
+        while (true)
+        {
+            GameObject g = InsObject(goal, insPosiY_Goal);
+            posi = g.transform.position;
+            while (true)//プレイヤーとエネミーのポジションが被らなくなるまで繰り返す
+            {
+                posi = ObjectPosition(mapSize, insPosiY_Goal);
+                if (posi.x > insPlayer.transform.position.x + 2 || posi.x > insPlayer.transform.position.x -2)
+                {
+                    if(posi.z > insPlayer.transform.position.z + 2 || posi.z > insPlayer.transform.position.z - 2)
+                    {
+                        break;
+                    }
+                }
+            }
+            g.transform.position = posi;
+            break;
+        }
+    }
+    void InsEnemy()
+    {
+        if (enemys.Count > 0)
+        {
+            for (int i = 0; i < enemysSet; i++)
+            {
+                GameObject e = InsObject(enemys[SetEneNo()], insPosiY_Enemy);
+                e.transform.position = insPosiCheck(insPosiY_Enemy);
+                SetPlayer(e);
+                insObjList.Add(e);
+            }
+        }
+        else
+        {
+            Debug.Log("enemyが設定されていません");
+        }
+    }
     GameObject InsObject(GameObject gameObject,float f)//オブジェクト（エネミー）をマップに追加
     {
         if (gameObject != null)
         {
             GameObject e = Instantiate(gameObject);
-            e.transform.position = insPosiCheck(f);
             e.transform.eulerAngles = ObjectRotation();
             return e;
         }
@@ -147,23 +185,6 @@ public class GameCon : MonoBehaviour
     {
         time += Time.deltaTime;
         return time;
-    }
-    void InsEnemy()
-    {
-        if(enemys.Count > 0)
-        {
-            for (int i = 0; i < enemysSet; i++)
-            {
-                GameObject e = InsObject(enemys[SetEneNo()], insPosiY_Enemy);
-                SetPlayer(e);
-                insObjList.Add(e);
-            }
-        }
-        else
-        {
-            Debug.Log("enemyが設定されていません");
-        }
-        
     }
     void ConsoleTime()//Debug用　コンソールに経過時間表示
     {

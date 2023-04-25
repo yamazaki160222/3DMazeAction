@@ -17,8 +17,8 @@ public class CanvasController : MonoBehaviour
     void Start()
     {
         gameCon = mainCam.GetComponent<GameCon>();
-        player = GetComponent<SetPlayer>().Player;
-        charCon_Y =player.GetComponent<CharCon_Y>();
+        player = mainCam.GetComponent<CameraCon>().charaLookAtPosition.gameObject;
+        charCon_Y = player.GetComponent<CharCon_Y>();
     }
 
     // Update is called once per frame
@@ -30,7 +30,7 @@ public class CanvasController : MonoBehaviour
 
     void getGameTime()//実時間取得
     {
-        //float time = gameCon.GameTime();  ←publicな関数にしてもらえれば取得できる
+        //float time = gameCon.GameTime();
         //以下2行、代理文
         float time = 0;
         time += Time.deltaTime;
@@ -38,14 +38,14 @@ public class CanvasController : MonoBehaviour
         float consoleTime = 0;
         if (time - consoleTime >= 1)
         {
-            timeText.text = "Time:" + time + "秒";
+            timeText.text = "Time:" + (int)time + "秒";
             consoleTime = time;
         }
     }
     void getLife()
     {
         int defaultLife = charCon_Y.DefaultLife();
-        int life =  charCon_Y.Life();
+        int life = charCon_Y.Life();
         lifeText.text = "Life:" + life + "/" + defaultLife;
     }
 

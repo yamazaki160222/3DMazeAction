@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SetPlayer : MonoBehaviour
 {
-    GameObject player;
+    public GameObject player;
     Transform tra;
 
     // Start is called before the first frame update

@@ -33,7 +33,6 @@ public class EnemyController_S : MonoBehaviour
             isOpen = false;
         }
     }
-
     
     void OnTriggerStay(Collider other)
     {
@@ -73,7 +72,6 @@ public class EnemyController_S : MonoBehaviour
         }
     }
     
-
     // Update is called once per frame
     void Update()
     {

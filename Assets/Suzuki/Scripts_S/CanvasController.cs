@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CanvasController : MonoBehaviour
 {
     public Camera mainCam;
-    public GameObject Player;
+    public GameObject player;
     public Text timeText;
     public Text lifeText;
 
@@ -17,7 +17,8 @@ public class CanvasController : MonoBehaviour
     void Start()
     {
         gameCon = mainCam.GetComponent<GameCon>();
-        //charCon_Y = GetComponent<SetPlayer>().player;
+        player = GetComponent<SetPlayer>().Player;
+        charCon_Y =player.GetComponent<CharCon_Y>();
     }
 
     // Update is called once per frame

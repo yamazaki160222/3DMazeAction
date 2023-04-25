@@ -101,10 +101,6 @@ MonoBehaviour:
   cameraRotateSpeed: 120
   basePos: {x: 0, y: 2, z: 1.8}
   baseRot: {x: 0, y: 1.1, z: 0}
-  abstacleLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  ContactPos: 1.3
 --- !u!114 &1172696158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,8 +114,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 7205719038485501694, guid: a780da896ca904035b33f90d86b0ba4d, type: 3}
-  enemy: {fileID: 4742120886164434809, guid: f0b636857888e4243bc42f6183bfbe37, type: 3}
+  enemys:
+  - {fileID: 7972764027009467037, guid: ac2c751e8e709234eb7badbf9a17879b, type: 3}
+  enemysSetPlayerNo: 00000000
   goal: {fileID: 3561307456617316819, guid: ca6cac4969c38724bb47c36f53f0fcef, type: 3}
   cameraCon: {fileID: 1465415114262540943}
   mapSize: 7
-  insPosiY: 1.5
+  startPosiOffset_x: 1
+  startPosiOffset_z: 1
+  insPosiY_Player: 0
+  insPosiY_Enemy: 0
+  insPosiY_Goal: 0

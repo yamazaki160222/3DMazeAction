@@ -1,24 +1,49 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyChese : MonoBehaviour
+public class EnemyController_Y : MonoBehaviour
 {
-    public GameObject player;//追跡対象
+    [SerializeField] GameObject player;//追跡対象
+    [SerializeField] Transform plaPosi;//追跡対象座標
     public float traceDist = 100.0f;//追跡半径
     NavMeshAgent nav;
     bool EnemyEye;//視界方向にいるか
     public float chasetimeLimit = 2.0f;//目標を見失ってから追跡を続ける時間
     float chesetime;//目標を見失ってからの経過時間
-    bool isOpen;
 
+
+    // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("robo instantiate");
         nav = GetComponent<NavMeshAgent>();
+        GetPlayer();
+        //GetPlaPosi();
         StartCoroutine(CheckDist());
         nav.isStopped = true;//追跡無効の状態でスタート
+
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    void GetPlayer()
+    {
+        SetPlayer sP = GetComponent<SetPlayer>();
+        //Debug.Log("SetPlayer:" + sP);//デバッグ用
+        player = sP.Player;
+        
+        //Debug.Log("player:" + player);//デバッグ用
+    }
+    void GetPlaPosi()
+    {
+        SetPlayer sP = GetComponent<SetPlayer>();
+        plaPosi = sP.Tra;
+    }
 
     void OnTriggerEnter(Collider other)//視界方向コライダー
     {
@@ -52,7 +77,7 @@ public class EnemyChese : MonoBehaviour
 
 
             if (dist < traceDist && hit.collider.gameObject.tag == "Player" && EnemyEye)
-                //(ネジコは追跡範囲か&&視線Rayが衝突したオブジェクトのタグは"Playerか&&視界コライダーにネジコは入っているか")
+            //(ネジコは追跡範囲か&&視線Rayが衝突したオブジェクトのタグは"Playerか&&視界コライダーにネジコは入っているか")
             {
                 chesetime = 0;//視認追跡
 

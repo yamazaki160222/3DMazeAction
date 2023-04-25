@@ -191,6 +191,8 @@ GameObject:
   - component: {fileID: 5809785687522462953}
   - component: {fileID: 5809785687522462952}
   - component: {fileID: 7500847864195251140}
+  - component: {fileID: 4477225564783313271}
+  - component: {fileID: 3324857661199881623}
   m_Layer: 0
   m_Name: Tofu
   m_TagString: Enemy
@@ -207,7 +209,7 @@ Transform:
   m_GameObject: {fileID: 5809785688859520429}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
   - {fileID: 5809785688859160961}
   - {fileID: 5809785688859160975}
@@ -312,6 +314,31 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4477225564783313271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5809785688859520429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31516418216886043ab8c160a9cfe975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3324857661199881623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5809785688859520429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53fb53e016e2e07438d77160c0d3ec8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHit: 0
 --- !u!1 &5809785688859520431
 GameObject:
   m_ObjectHideFlags: 0

@@ -115,7 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 7205719038485501694, guid: a780da896ca904035b33f90d86b0ba4d, type: 3}
   enemys:
-  - {fileID: 7972764027009467037, guid: ac2c751e8e709234eb7badbf9a17879b, type: 3}
+  - {fileID: 5253762927692087174, guid: ad658efa2480fc04c8dc756c2c0ba0ff, type: 3}
   enemysSet: 3
   goal: {fileID: 3561307456617316819, guid: ca6cac4969c38724bb47c36f53f0fcef, type: 3}
   cameraCon: {fileID: 1465415114262540943}

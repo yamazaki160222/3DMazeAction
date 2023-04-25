@@ -14,6 +14,7 @@ public class CharCon_Y : MonoBehaviour
     public float backSpeed = 0.5f;
     public float knockBack;
     public float stunDuration = 0.5f;
+    [SerializeField] bool isStun = false;
 
     const int defaultLife = 3;
 
@@ -44,12 +45,12 @@ public class CharCon_Y : MonoBehaviour
         dir.y -= gravity * Time.deltaTime;
         Life();
         float acc = 0;
-        if (!IsStun() || !GetIsGoal())
+        if (!Stun() || !GetIsGoal())
         {
             acc = Input.GetAxis("Vertical");
         }
 
-        if (IsStun() && !GetIsGoal())
+        if (Stun() && !GetIsGoal())
         {
             dir.x = 0f;
             dir.z = 0f;
@@ -94,7 +95,7 @@ public class CharCon_Y : MonoBehaviour
 
     public void Jump()
     {
-        if (IsStun()) return;
+        if (Stun()) return;
         if (cc.isGrounded)
         {
             dir.y = jumpPower;
@@ -110,14 +111,20 @@ public class CharCon_Y : MonoBehaviour
     {
         return defaultLife;
     }
-    bool IsStun()
+
+    public bool IsStun
+    {
+        get => this.isStun;
+        set => this.isStun = value;
+    }
+    bool Stun()
     {
         if (recoverTime > 0.0f)
         {
-            Debug.Log("IsStun:true");
-            return true;
+            IsStun = true;
+            Debug.Log("IsStun:" + IsStun);
         }
-        return false;
+        return IsStun;
     }
     public bool GetIsGoal()
     {
@@ -142,14 +149,10 @@ public class CharCon_Y : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (IsStun()) return;
+        if (Stun()) return;
         if (hit.gameObject.tag == "Enemy")
         {
-            life++;
-            recoverTime = stunDuration;
-            //cc.Move((transform.forward * -1 * speed + dir) * Time.deltaTime);
-            animator.SetTrigger("damage");
-
+            HitAction();
             //Destroy(hit.gameObject);
         }
 
@@ -159,8 +162,16 @@ public class CharCon_Y : MonoBehaviour
             animator.SetBool("run", false);
         }
     }
+    public void HitAction()
+    {
+        life++;
+        recoverTime = stunDuration;
+        //cc.Move((transform.forward * -1 * speed + dir) * Time.deltaTime);
+        animator.SetTrigger("damage");
+    }
     public void StartGoalAnim()
     {
+        Debug.Log("StartGoalAnim");
         StartCoroutine("GoalAnim");
     }
     IEnumerator GoalAnim()

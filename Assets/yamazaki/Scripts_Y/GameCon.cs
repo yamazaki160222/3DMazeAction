@@ -48,6 +48,7 @@ public class GameCon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        EnemyHit();
         //GameTime();
         //ConsoleTime();//デバッグ用
         //Goal();
@@ -175,6 +176,21 @@ public class GameCon : MonoBehaviour
     void ReturnToTitle()
     {
         SceneManager.LoadScene("");
+    }
+
+    void EnemyHit()
+    {
+        foreach(GameObject g in insObjList)
+        {
+            SetIsHit h = g.GetComponent<SetIsHit>();
+            if (h.IsHit == true)
+            {
+                Debug.Log("IsHit");
+                charCon.IsStun = true;
+                charCon.HitAction();
+                h.IsHit = false;
+            }
+        }
     }
     void Goal()
     {

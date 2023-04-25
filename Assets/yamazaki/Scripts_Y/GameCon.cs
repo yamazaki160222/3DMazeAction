@@ -32,18 +32,16 @@ public class GameCon : MonoBehaviour
 
         //mapSize = mazeMake.getMapSize();//マップ生成スクリプトからマップサイズを取得
 
-        insPlayer = Instantiate(player);//プレイヤー生成
-        insPlayer.transform.position = ObjectPosition(mapSize, insPosiY_Player);//プレイヤーポジション設定
+        InsPlayer();
         insObjList = new List<GameObject>();
-        cameraCon.setTransform(insPlayer.transform);//メインカメラにプレイヤーポジションをセット
-        charCon = insPlayer.GetComponent<CharCon_Y>();//charConにキャラクターコントローラーを代入
         InsEnemy();//エネミー生成
         InsObject(goal,insPosiY_Goal);//ゴール生成
 
-        for(int i = 0; i < 10000; i++)
+        /*for(int i = 0; i < 10000; i++)//デバッグ用
         {
             Debug.Log(insPosiCheck(0));
-        }
+        }*/
+        Debug.Log("Start()終了");
 
     }
 
@@ -62,17 +60,57 @@ public class GameCon : MonoBehaviour
         Vector3 posi = new Vector3(x, y, z);
         return posi;
     }
+    Vector3 ObjectRotation()
+    {
+        int i = Random.Range(0, 3);
+        float y = 0;
+        switch (i){
+            case 0:
+                y = 0;
+                break;
+            case 1:
+                y = 90;
+                break;
+            case 2:
+                y = 180;
+                break;
+            case 3:
+                y = -90;
+                break;
+            default:
+                break;
+        }
+        Vector3 rot = new Vector3(0, y, 0);
+        return rot;
+    }
+
+    void InsPlayer()
+    {
+        if (player != null)
+        {
+            insPlayer = Instantiate(player);//プレイヤー生成
+            insPlayer.transform.position = ObjectPosition(mapSize, insPosiY_Player);//プレイヤーポジション設定
+            insPlayer.transform.eulerAngles = ObjectRotation();
+            cameraCon.setTransform(insPlayer.transform);//メインカメラにプレイヤーポジションをセット
+            charCon = insPlayer.GetComponent<CharCon_Y>();//charConにキャラクターコントローラーを代入
+        }
+        else
+        {
+            Debug.Log("playerが設定されていません");
+        }
+    }
     GameObject InsObject(GameObject gameObject,float f)//オブジェクト（エネミー）をマップに追加
     {
         if (gameObject != null)
         {
             GameObject e = Instantiate(gameObject);
             e.transform.position = insPosiCheck(f);
+            e.transform.eulerAngles = ObjectRotation();
             return e;
         }
         else
         {
-            Debug.Log("insObject_null");
+            Debug.Log("Object_null");
             return null;
         }
        
@@ -111,12 +149,20 @@ public class GameCon : MonoBehaviour
     }
     void InsEnemy()
     {
-        for(int i = 0; i < enemysSet; i++)
+        if(enemys.Count > 0)
         {
-            GameObject e = InsObject(enemys[SetEneNo()], insPosiY_Enemy);
-            SetPlayer(e);
-            insObjList.Add(e);
+            for (int i = 0; i < enemysSet; i++)
+            {
+                GameObject e = InsObject(enemys[SetEneNo()], insPosiY_Enemy);
+                SetPlayer(e);
+                insObjList.Add(e);
+            }
         }
+        else
+        {
+            Debug.Log("enemyが設定されていません");
+        }
+        
     }
     void ConsoleTime()//Debug用　コンソールに経過時間表示
     {

@@ -50,11 +50,10 @@ public class CharCon_Y : MonoBehaviour
             acc = Input.GetAxis("Vertical");
         }
 
-        if (Stun() && !GetIsGoal())
+        if (Stun())
         {
             Debug.Log("recoverTime:"+recoverTime);
-            dir.x = 0f;
-            dir.z = 0f;
+            acc = 0;
             recoverTime -= Time.deltaTime;
         }
         if (!GetIsGoal())
@@ -122,10 +121,13 @@ public class CharCon_Y : MonoBehaviour
     {
         if (recoverTime > 0.0f)
         {
-            IsStun = true;
             Debug.Log("IsStun:" + IsStun);
+            return IsStun = true;
         }
-        return IsStun = false;
+        else
+        {
+            return IsStun = false;
+        }
     }
     public bool GetIsGoal()
     {

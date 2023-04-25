@@ -14,14 +14,14 @@ public class CharCon_Y : MonoBehaviour
     public float backSpeed = 0.5f;
     public float knockBack;
     public float stunDuration = 0.5f;
-    [SerializeField] bool isStun = false;
 
-    const int defaultLife = 3;
+    [SerializeField] int defaultLife = 3;
+    [SerializeField] float recoverTime = 0.0f;
+    [SerializeField] bool isStun = false;
+    [SerializeField] bool isGoal = false;
+    [SerializeField] bool isGameOver = false;
 
     int life = 0;
-    float recoverTime = 0.0f;
-    bool isGoal = false;
-    bool isGameOver = false;
 
     // Start is called before the first frame update
 
@@ -52,6 +52,7 @@ public class CharCon_Y : MonoBehaviour
 
         if (Stun() && !GetIsGoal())
         {
+            Debug.Log("recoverTime:"+recoverTime);
             dir.x = 0f;
             dir.z = 0f;
             recoverTime -= Time.deltaTime;
@@ -124,7 +125,7 @@ public class CharCon_Y : MonoBehaviour
             IsStun = true;
             Debug.Log("IsStun:" + IsStun);
         }
-        return IsStun;
+        return IsStun = false;
     }
     public bool GetIsGoal()
     {

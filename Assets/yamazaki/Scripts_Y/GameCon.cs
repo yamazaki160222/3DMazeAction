@@ -94,7 +94,7 @@ public class GameCon : MonoBehaviour
         return Random.Range(0, enemys.Count);
     }
 
-    //エラー回避のため、無効化しています。
+    
     void SetPlayer(GameObject e)
     {
         sP = e.GetComponent<SetPlayer>();

@@ -6,18 +6,11 @@ public class EnemyController_S : MonoBehaviour
 {
     //public float walkSpeed;
     //public int moveRange;       //原点からの移動範囲（前後）
-    public GameObject player;
 
     GameObject enemy;
     //Vector3 origin;     //初期位置
     Animator animator;
     bool isOpen;        //進行方向が開けているかどうか
-
-    public GameObject Player
-    {
-        get => this.player;
-        set => this.player = value;
-    }
 
     // Start is called before the first frame update
     void Start()

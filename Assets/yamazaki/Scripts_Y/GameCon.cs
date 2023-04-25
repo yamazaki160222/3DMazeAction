@@ -13,6 +13,8 @@ public class GameCon : MonoBehaviour
     [SerializeField] CameraCon cameraCon;
     //[SerializeField] MazeMake mazeMake;//マップ生成スクリプト
     [SerializeField] int mapSize;
+    [SerializeField] int startPosiOffset_x = 1;
+    [SerializeField] int startPosiOffset_z = 1;
     public float insPosiY_Player;
     public float insPosiY_Enemy;
     public float insPosiY_Goal;
@@ -20,20 +22,27 @@ public class GameCon : MonoBehaviour
     float consoleTime = 0;//デバッグ用
     GameObject insPlayer;
     CharCon_Y  charCon;
+    SetPlayer sP;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        insPlayer = Instantiate(player);
-        cameraCon.setTransform(insPlayer.transform);
-        charCon = insPlayer.GetComponent<CharCon_Y>();
+
+        //mapSize = mazeMake.getMapSize();//マップ生成スクリプトからマップサイズを取得
+
+        insPlayer = Instantiate(player);//プレイヤー生成
+        insPlayer.transform.position = ObjectPosition(mapSize, insPosiY_Player);//プレイヤーポジション設定
+        cameraCon.setTransform(insPlayer.transform);//メインカメラにプレイヤーポジションをセット
+        charCon = insPlayer.GetComponent<CharCon_Y>();//charConにキャラクターコントローラーを代入
         InsObject(enemys[SetEneNo()],insPosiY_Enemy);//エネミー生成
         InsObject(goal,insPosiY_Goal);//ゴール生成
-        
-        //mapSize = mazeMake.getMapSize();//マップ生成スクリプトからマップサイズを取得
-        insPlayer.transform.position = ObjectPosition(mapSize,insPosiY_Player);
+
+        for(int i = 0; i < 10000; i++)
+        {
+            Debug.Log(insPosiCheck(0));
+        }
 
     }
 
@@ -47,8 +56,8 @@ public class GameCon : MonoBehaviour
 
     Vector3 ObjectPosition(int mapSize,float y)//プレイヤー、エネミーのポジションを設定
     {
-        int x = Random.Range(0, (mapSize + 1) / 2) * 2;
-        int z = Random.Range(0, (mapSize + 1) / 2) * 2;
+        int x = Random.Range(0, (mapSize + 1) / 2) * 2 + startPosiOffset_x;
+        int z = Random.Range(0, (mapSize + 1) / 2) * 2 + startPosiOffset_z;
         Vector3 posi = new Vector3(x, y, z);
         return posi;
     }
@@ -73,7 +82,6 @@ public class GameCon : MonoBehaviour
         {
             posi = ObjectPosition(mapSize, f);
             if (posi.x != insPlayer.transform.position.x || posi.y != insPlayer.transform.position.y)
-
             {
                 break;
             }
@@ -89,23 +97,24 @@ public class GameCon : MonoBehaviour
     //エラー回避のため、無効化しています。
     void SetPlayer(GameObject e)
     {
-        if (EnemyCheck(e))
-        {
-            //e.Player(insPlayer);
-        }
+        sP = e.GetComponent<SetPlayer>();
+        sP.Player = insPlayer;
     }
+
+    /* //Instantiateしたオブジェクトは（クローン）になるため比較できない
     bool EnemyCheck(GameObject e)
     {
         foreach (int i in enemysSetPlayerNo)
         {
-            if(e == enemys[i])
+            Debug.Log(e +":"+enemys[i]);
+            if(e.Equals(enemys[i]))
             {
                 return true;
             }
         }
         return false;
     }
-    
+    */
     float GameTime()//実時間取得
     {
         time += Time.deltaTime;

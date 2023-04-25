@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class SetPlayer : MonoBehaviour
 {
-    GameObject obj;
+    GameObject player;
+    Transform tra;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +18,18 @@ public class SetPlayer : MonoBehaviour
     {
         
     }
+    public GameObject Player
+    {
+        get => this.player;
+        set => this.player = value;
+    }
 
+
+    public Transform Tra
+    {
+        get { return tra; }
+        set { tra = value; }
+    }
     
+
 }

@@ -52,7 +52,7 @@ public class CharCon_Y : MonoBehaviour
 
         if (Stun())
         {
-            Debug.Log("recoverTime:"+recoverTime);
+            //Debug.Log("recoverTime:"+recoverTime);
             acc = 0;
             recoverTime -= Time.deltaTime;
         }

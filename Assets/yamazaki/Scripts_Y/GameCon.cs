@@ -21,8 +21,9 @@ public class GameCon : MonoBehaviour
     float time;
     float consoleTime = 0;//デバッグ用
     GameObject insPlayer;
-    CharCon_Y  charCon;
+    GameObject insGoal;
     List<GameObject> insObjList;
+    CharCon_Y  charCon;
 
 
 
@@ -34,7 +35,7 @@ public class GameCon : MonoBehaviour
 
         InsPlayer();
         insObjList = new List<GameObject>();
-        InsObject(goal, insPosiY_Goal);//ゴール生成
+        InsGoal();//ゴール生成
         InsEnemy();//エネミー生成
 
         /*for(int i = 0; i < 10000; i++)//デバッグ用
@@ -100,27 +101,23 @@ public class GameCon : MonoBehaviour
             Debug.Log("playerが設定されていません");
         }
     }
-    void insGoal()
+    void InsGoal()
     {
         Vector3 posi = new Vector3();
-        while (true)
+        insGoal = InsObject(goal, insPosiY_Goal);
+        posi = insGoal.transform.position;
+        while (true)//プレイヤーとエネミーのポジションが被らなくなるまで繰り返す
         {
-            GameObject g = InsObject(goal, insPosiY_Goal);
-            posi = g.transform.position;
-            while (true)//プレイヤーとエネミーのポジションが被らなくなるまで繰り返す
+            posi = ObjectPosition(mapSize, insPosiY_Goal);
+            if (posi.x > insPlayer.transform.position.x + 2 || posi.x < insPlayer.transform.position.x - 2)
             {
-                posi = ObjectPosition(mapSize, insPosiY_Goal);
-                if (posi.x > insPlayer.transform.position.x + 2 || posi.x > insPlayer.transform.position.x -2)
+                if (posi.z > insPlayer.transform.position.z + 2 || posi.z < insPlayer.transform.position.z - 2)
                 {
-                    if(posi.z > insPlayer.transform.position.z + 2 || posi.z > insPlayer.transform.position.z - 2)
-                    {
-                        break;
-                    }
+                    break;
                 }
             }
-            g.transform.position = posi;
-            break;
         }
+        insGoal.transform.position = posi;
     }
     void InsEnemy()
     {
@@ -157,12 +154,33 @@ public class GameCon : MonoBehaviour
     Vector3 insPosiCheck(float f)
     {
         Vector3 posi = new Vector3();
-        while (true)//プレイヤーとエネミーのポジションが被らなくなるまで繰り返す
+        bool b = true;
+        while (true)//プレイヤー、ゴール、とエネミーとのポジションが被らなくなるまで繰り返す
         {
+            b = true;
             posi = ObjectPosition(mapSize, f);
-            if (posi.x != insPlayer.transform.position.x || posi.y != insPlayer.transform.position.y)
+            if ((posi.x != insPlayer.transform.position.x || posi.z != insPlayer.transform.position.z) &&
+                (posi.x != insGoal.transform.position.x || posi.z != insGoal.transform.position.z))//プレイヤー、ゴールのポジションチェック
             {
-                break;
+                if (insObjList.Count != 0)//生成済みエネミーがいないか確認
+                {
+                    foreach (GameObject e in insObjList)//eに生成済みのエネミーを代入
+                    {
+                        Debug.Log(e.transform.position);
+                        if (posi.x == e.transform.position.x || posi.z == e.transform.position.z)//生成済みエネミーのポジションチェック
+                        {
+                            b = false;//一致の場合false
+                        }
+                    }
+                    if (b)//生成済みエネミーと一致しなかった場合break
+                    {
+                        break;
+                    }
+                }
+                else//生成済みエネミーがいない場合break
+                {
+                    break;
+                }
             }
         }
         return posi;

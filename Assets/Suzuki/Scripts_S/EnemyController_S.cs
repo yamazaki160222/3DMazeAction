@@ -27,7 +27,8 @@ public class EnemyController_S : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         //Debug.Log("衝突検知");
-        if(other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Goal") || other.gameObject.CompareTag("Enemy"))
+        //if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Goal") || other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Enemy"))
         {
             //Debug.Log("これ以上進めない");
             isOpen = false;
@@ -36,7 +37,8 @@ public class EnemyController_S : MonoBehaviour
     
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Goal") || other.gameObject.CompareTag("Enemy"))
+        //if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Goal") || other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Enemy"))
         {
             //Debug.Log("回転します");
             Transform eneTra = enemy.transform;
@@ -65,7 +67,8 @@ public class EnemyController_S : MonoBehaviour
     
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Goal") || other.gameObject.CompareTag("Enemy"))
+        //if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Goal") || other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Enemy"))
         {
             //Debug.Log("前進できる");
             isOpen = true;

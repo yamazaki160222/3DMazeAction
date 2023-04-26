@@ -31,23 +31,23 @@ public class CanvasController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TextClear(a_flag);
-        GetGameTime();
-        GetLife();
-
         if (charCon_Y.GetIsGoal() == true)
         {
-            TextApper(a_flag);
+            mainText.text = "StageClear!!\nTap to NextStage";
+            mainText.color = new Color(0, 0, 0, 1);
         }
+        else
+        {
+            TextClear(a_flag);
+            GetGameTime();
+            GetLife();
+        }
+        
     }
 
     void GetGameTime()//実時間取得
     {
-        //float time = gameCon.GameTime();
-        //以下2行、代理文
-        float time = 0;
-        time += Time.deltaTime;
-
+        float time = gameCon.GameTime();
         float consoleTime = 0;
         if (time - consoleTime >= 1)
         {
@@ -62,7 +62,7 @@ public class CanvasController : MonoBehaviour
         lifeText.text = "Life:" + life + "/" + defaultLife;
     }
 
-    //mainTextを透明にしていく
+    //Textを透明にしていく
     void TextClear(bool a_flag)
     {
         //a_flagがtrueの間実行する
@@ -80,6 +80,8 @@ public class CanvasController : MonoBehaviour
         }
     }
 
+    /*
+    //Textを透明から戻す
     void TextApper(bool a_flag)
     {
         //a_flagがfalseの間実行する
@@ -96,5 +98,6 @@ public class CanvasController : MonoBehaviour
             }
         }
     }
+    */
 
 }

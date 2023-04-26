@@ -15,12 +15,13 @@ public class CharCon_Y : MonoBehaviour
     public float knockBack;
     public float stunDuration = 0.5f;
 
-    const int defaultLife = 3;
+    [SerializeField] int defaultLife = 3;
+    [SerializeField] float recoverTime = 0.0f;
+    [SerializeField] bool isStun = false;
+    [SerializeField] bool isGoal = false;
+    [SerializeField] bool isGameOver = false;
 
     int life = 0;
-    float recoverTime = 0.0f;
-    bool isGoal = false;
-    bool isGameOver = false;
 
     // Start is called before the first frame update
 
@@ -44,15 +45,15 @@ public class CharCon_Y : MonoBehaviour
         dir.y -= gravity * Time.deltaTime;
         Life();
         float acc = 0;
-        if (!IsStun() || !GetIsGoal())
+        if (!Stun() || !GetIsGoal())
         {
             acc = Input.GetAxis("Vertical");
         }
 
-        if (IsStun() && !GetIsGoal())
+        if (Stun())
         {
-            dir.x = 0f;
-            dir.z = 0f;
+            //Debug.Log("recoverTime:"+recoverTime);
+            acc = 0;
             recoverTime -= Time.deltaTime;
         }
         if (!GetIsGoal())
@@ -94,7 +95,7 @@ public class CharCon_Y : MonoBehaviour
 
     public void Jump()
     {
-        if (IsStun()) return;
+        if (Stun()) return;
         if (cc.isGrounded)
         {
             dir.y = jumpPower;
@@ -110,14 +111,23 @@ public class CharCon_Y : MonoBehaviour
     {
         return defaultLife;
     }
-    bool IsStun()
+
+    public bool IsStun
+    {
+        get => this.isStun;
+        set => this.isStun = value;
+    }
+    bool Stun()
     {
         if (recoverTime > 0.0f)
         {
-            Debug.Log("IsStun:true");
-            return true;
+            Debug.Log("IsStun:" + IsStun);
+            return IsStun = true;
         }
-        return false;
+        else
+        {
+            return IsStun = false;
+        }
     }
     public bool GetIsGoal()
     {
@@ -142,14 +152,10 @@ public class CharCon_Y : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (IsStun()) return;
+        if (Stun()) return;
         if (hit.gameObject.tag == "Enemy")
         {
-            life++;
-            recoverTime = stunDuration;
-            //cc.Move((transform.forward * -1 * speed + dir) * Time.deltaTime);
-            animator.SetTrigger("damage");
-
+            HitAction();
             //Destroy(hit.gameObject);
         }
 
@@ -159,8 +165,16 @@ public class CharCon_Y : MonoBehaviour
             animator.SetBool("run", false);
         }
     }
+    public void HitAction()
+    {
+        life++;
+        recoverTime = stunDuration;
+        //cc.Move((transform.forward * -1 * speed + dir) * Time.deltaTime);
+        animator.SetTrigger("damage");
+    }
     public void StartGoalAnim()
     {
+        Debug.Log("StartGoalAnim");
         StartCoroutine("GoalAnim");
     }
     IEnumerator GoalAnim()

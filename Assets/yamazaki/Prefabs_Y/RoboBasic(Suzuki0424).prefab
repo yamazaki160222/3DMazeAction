@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 195226832967654216}
   - component: {fileID: 1027359085350948699}
   - component: {fileID: 111788785642485354}
+  - component: {fileID: 1724862404}
   m_Layer: 0
   m_Name: RoboBasic(Suzuki0424)
   m_TagString: Enemy
@@ -135,6 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31516418216886043ab8c160a9cfe975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!114 &111788785642485354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,8 +150,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  plaPosi: {fileID: 0}
   traceDist: 100
   chasetimeLimit: 2
+--- !u!114 &1724862404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7972764027009467037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53fb53e016e2e07438d77160c0d3ec8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHit: 0
 --- !u!1 &7972764027009467039
 GameObject:
   m_ObjectHideFlags: 0

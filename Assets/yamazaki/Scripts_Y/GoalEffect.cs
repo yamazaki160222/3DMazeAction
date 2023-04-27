@@ -20,12 +20,12 @@ public class GoalEffect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     public void OnEffect()
     {
         Vector3 posi = this.transform.position;
-        Quaternion lote = Quaternion.Euler(0,0,0);
+        Quaternion lote = Quaternion.Euler(0, 0, 0);
 
         posi.x += posiOffset_x;
         posi.y += posiOffset_y;
@@ -33,8 +33,9 @@ public class GoalEffect : MonoBehaviour
         lote.x += loteOffset_x;
         lote.y += loteOffset_y;
         lote.z += loteOffset_z;
-        GameObject g = Instantiate(particleObject,posi,lote);
+        GameObject g = Instantiate(particleObject, posi, lote);
         g.transform.parent = this.transform;
+        g.SetActive(true);
 
     }
 }

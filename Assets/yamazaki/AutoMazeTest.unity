@@ -202,8 +202,8 @@ MonoBehaviour:
   particleObject: {fileID: 6320764734043755677, guid: a08f305751e5471458875e1ff3e3ca88,
     type: 3}
   posiOffset_x: 0
-  posiOffset_y: -1
-  posiOffset_z: 0.5
+  posiOffset_y: -2
+  posiOffset_z: -2
   loteOffset_x: 0
   loteOffset_y: 0
   loteOffset_z: 0
@@ -431,7 +431,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.083333336
+  m_VoxelSize: 0.033333335
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 0}
 --- !u!4 &2431161735269161591

@@ -250,38 +250,51 @@ public class GameCon : MonoBehaviour
 
     void EnemyHit()
     {
-        foreach(int i in insEnemyList.Keys)
+        if(insEnemyList != null && insEnemyList.Count != 0)
         {
-            GameObject g = insEnemyList[i];
-            SetIsHit h = g.GetComponent<SetIsHit>();
-            if (h.IsHit == true)
+            Dictionary<int, GameObject> cpList = new Dictionary<int, GameObject>();
+            foreach (int j in insEnemyList.Keys)
             {
-                Debug.Log("EnemyIsHit");
-                h.IsHit = false;
-                charCon.IsStun = true;
-                charCon.HitAction();
-                EnemyRemove(i);
+                cpList.Add(j, insEnemyList[j]);
+            }
+            Debug.Log(insEnemyList);
+            foreach (int i in insEnemyList.Keys)
+            {
+                GameObject g = insEnemyList[i];
+                SetIsHit h = g.GetComponent<SetIsHit>();
+                if (h.IsHit == true)
+                {
+                    Debug.Log("EnemyIsHit");
+                    charCon.IsStun = true;
+                    charCon.HitAction();
+                    EnemyRemove(i);
+                }
             }
         }
     }
     public void ItemHit()
     {
-        if (insItemList.Count != 0)
+        if (insItemList != null && insItemList.Count != 0)
         {
-            foreach (int j in insItemList.Keys)
+            Dictionary<int, GameObject> cpList = new Dictionary<int, GameObject>();
+            foreach(int j in insItemList.Keys)
+            {
+                cpList.Add(j, insItemList[j]);
+            }
+            foreach (int j in cpList.Keys)
             {
                 GameObject item = insItemList[j];
                 Item i = item.GetComponent<Item>();
                 SetIsHit h = item.GetComponent<SetIsHit>();
-                if (i.IsHit == true)
+                if (h.IsHit == true)
                 {
+                    h.IsHit = false;
                     switch (i.ItemNo)
                     {
                         case 0:
                             if (charCon.LifeUp())
                             {
                                 Debug.Log("ItemIsHit");
-                                h.IsHit = false;
                                 ItemRemove(j);
                                 i.ThisDestroy();
                             }
@@ -310,8 +323,10 @@ public class GameCon : MonoBehaviour
     }
     void EnemyRemove(int i)
     {
+        GameObject g = insEnemyList[i].gameObject;
         if (insEnemyList.Remove(i))
         {
+            Destroy(g);
             Debug.Log("EnemyRemove:true");
         }
         else
@@ -321,8 +336,10 @@ public class GameCon : MonoBehaviour
     }
     void ItemRemove(int i)
     {
+        GameObject g = insItemList[i].gameObject;
         if (insItemList.Remove(i))
         {
+            Destroy(g);
             Debug.Log("ItemRemove:true");
         }
         else

@@ -27,10 +27,11 @@ public class GameCon : MonoBehaviour
     GameObject insPlayer;
     GameObject insGoal;
     [SerializeField] Dictionary<int, GameObject> insEnemyList;
-    int enemyNo = 1;
+    int enemyIdNo = 1;
     [SerializeField] Dictionary<int, GameObject> insItemList;
-    int itemNo = 1;
+    int itemIdNo = 1;
     CharCon_Y  charCon;
+    bool goalCheck;
 
 
 
@@ -52,6 +53,7 @@ public class GameCon : MonoBehaviour
         }*/
         Debug.Log(insEnemyList);
         Debug.Log(insItemList);
+        goalCheck = true;
         Debug.Log("Start()終了");
 
     }
@@ -141,9 +143,9 @@ public class GameCon : MonoBehaviour
                 e.transform.position = insPosiCheck(insEnemyList, insPosiY_Enemy);
                 SetPlayer(e);
                 SetIsHit s = e.GetComponent<SetIsHit>();
-                s.IdNo = enemyNo;
-                insEnemyList.Add(enemyNo, e);
-                enemyNo++;
+                s.IdNo = enemyIdNo;
+                insEnemyList.Add(enemyIdNo, e);
+                enemyIdNo++;
             }
         }
         else
@@ -159,10 +161,10 @@ public class GameCon : MonoBehaviour
             {
                 GameObject item = InsObject(items[i], posiY);
                 item.transform.position = insPosiCheck(insItemList, posiY);
-                SetIsHit s = item.GetComponent<SetIsHit>();
-                insItemList.Add(itemNo, item);
-                s.IdNo = itemNo;
-                itemNo++;
+                Item it = item.GetComponent<Item>();
+                insItemList.Add(itemIdNo, item);
+                it.IdNo = itemIdNo;
+                itemIdNo++;
             }
 
         }
@@ -286,10 +288,9 @@ public class GameCon : MonoBehaviour
             {
                 GameObject item = insItemList[j];
                 Item i = item.GetComponent<Item>();
-                SetIsHit h = item.GetComponent<SetIsHit>();
-                if (h.IsHit == true)
+                if (i.IsHit == true)
                 {
-                    h.IsHit = false;
+                    i.IsHit = false;
                     switch (i.ItemNo)
                     {
                         case 0:
@@ -351,11 +352,12 @@ public class GameCon : MonoBehaviour
     }
     void Goal()
     {
-        if (charCon.GetIsGoal())
+        if (goalCheck && charCon.GetIsGoal())
         {
             Debug.Log("GameCon_Goal:" + charCon.GetIsGoal());
             goalEffect.OnEffect();
             charCon.StartGoalAnim();
+            goalCheck = false;
         }
     }
     void GameOver()

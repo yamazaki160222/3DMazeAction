@@ -201,12 +201,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleObject: {fileID: 6320764734043755677, guid: a08f305751e5471458875e1ff3e3ca88,
     type: 3}
-  posiOffset_x: 0
-  posiOffset_y: -2
-  posiOffset_z: -2
-  loteOffset_x: 0
-  loteOffset_y: 0
-  loteOffset_z: 0
+  posi_x: 0
+  posi_y: -2
+  posi_z: 2
+  lote_x: -110
+  lote_y: 0
+  lote_z: 0
 --- !u!1001 &2431161734651140138
 PrefabInstance:
   m_ObjectHideFlags: 0

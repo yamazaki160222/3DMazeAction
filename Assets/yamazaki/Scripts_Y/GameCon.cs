@@ -13,6 +13,7 @@ public class GameCon : MonoBehaviour
     [SerializeField] List<GameObject> items;
     [SerializeField] int itemSet;
     [SerializeField] CameraCon cameraCon;
+    [SerializeField] GoalEffect goalEffect;
     [SerializeField] MazeMake mazeMake;
     //[SerializeField] MazeMake mazeMake;//マップ生成スクリプト
     [SerializeField] int mapSize;
@@ -63,7 +64,7 @@ public class GameCon : MonoBehaviour
         RemoveCheck();
         //GameTime();
         //ConsoleTime();//デバッグ用
-        //Goal();
+        Goal();
     }
 
     Vector3 ObjectPosition(int mapSize,float y)//プレイヤー、エネミーのポジションを設定
@@ -353,6 +354,7 @@ public class GameCon : MonoBehaviour
         if (charCon.GetIsGoal())
         {
             Debug.Log("GameCon_Goal:" + charCon.GetIsGoal());
+            goalEffect.OnEffect();
             charCon.StartGoalAnim();
         }
     }

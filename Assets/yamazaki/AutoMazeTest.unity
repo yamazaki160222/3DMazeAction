@@ -181,6 +181,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &567475131 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1465415114262540947, guid: 8ccd3d4c08060c243af810b6562eda99,
+    type: 3}
+  m_PrefabInstance: {fileID: 2431161734651140138}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &567475132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567475131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddbd6479425cb9748b5ae7e56fb3e207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleObject: {fileID: 6320764734043755677, guid: a08f305751e5471458875e1ff3e3ca88,
+    type: 3}
+  posiOffset_x: 0
+  posiOffset_y: -1
+  posiOffset_z: 0.5
+  loteOffset_x: 0
+  loteOffset_y: 0
+  loteOffset_z: 0
 --- !u!1001 &2431161734651140138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -192,6 +218,10 @@ PrefabInstance:
       propertyPath: mazeMake
       value: 
       objectReference: {fileID: 2431161735738160801}
+    - target: {fileID: 1172696158, guid: 8ccd3d4c08060c243af810b6562eda99, type: 3}
+      propertyPath: goalEffect
+      value: 
+      objectReference: {fileID: 567475132}
     - target: {fileID: 1465415114262540940, guid: 8ccd3d4c08060c243af810b6562eda99,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -247,6 +277,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1465415114262540943, guid: 8ccd3d4c08060c243af810b6562eda99,
+        type: 3}
+      propertyPath: goalEffect
+      value: 
+      objectReference: {fileID: 6320764734043755677, guid: a08f305751e5471458875e1ff3e3ca88,
+        type: 3}
     - target: {fileID: 1465415114262540947, guid: 8ccd3d4c08060c243af810b6562eda99,
         type: 3}
       propertyPath: m_Name

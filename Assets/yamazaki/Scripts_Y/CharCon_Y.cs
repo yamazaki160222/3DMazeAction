@@ -20,8 +20,21 @@ public class CharCon_Y : MonoBehaviour
     [SerializeField] bool isStun = false;
     [SerializeField] bool isGoal = false;
     [SerializeField] bool isGameOver = false;
+    [SerializeField] int enemyNo;
+    [SerializeField] int itemNo;
 
-    int life = 0;
+    [SerializeField] int life = 0;
+
+    public int EnemyNo
+    {
+        get => this.enemyNo;
+        set => this.enemyNo = value;
+    }
+    public int ItemNo
+    {
+        get => this.itemNo;
+        set => this.itemNo = value;
+    }
 
     // Start is called before the first frame update
 
@@ -104,12 +117,22 @@ public class CharCon_Y : MonoBehaviour
     }
     public int Life()
     {
-        Debug.Log("life:" + life +"/"+defaultLife);
+        string str = "life:" + (defaultLife - life) + "/" + defaultLife;
+        Debug.Log(str);
         return life;
     }
     public int DefaultLife()
     {
         return defaultLife;
+    }
+    public bool LifeUp()
+    {
+        if(life > 0 && life <= defaultLife)
+        {
+            life--;
+            return true;
+        }
+        return false;
     }
 
     public bool IsStun
@@ -155,7 +178,9 @@ public class CharCon_Y : MonoBehaviour
         if (Stun()) return;
         if (hit.gameObject.tag == "Enemy")
         {
+            SetIsHit s = hit.gameObject.GetComponent<SetIsHit>();
             HitAction();
+            this.EnemyNo = s.IdNo;
             //Destroy(hit.gameObject);
         }
 
@@ -164,13 +189,21 @@ public class CharCon_Y : MonoBehaviour
             SetIsGoal(true);
             animator.SetBool("run", false);
         }
+        if (hit.gameObject.tag == "item")
+        {
+            SetIsHit s = hit.gameObject.GetComponent<SetIsHit>();
+            this.ItemNo = s.IdNo;
+        }
     }
     public void HitAction()
     {
-        life++;
-        recoverTime = stunDuration;
-        //cc.Move((transform.forward * -1 * speed + dir) * Time.deltaTime);
-        animator.SetTrigger("damage");
+        if (life <= defaultLife)
+        {
+            life++;
+            recoverTime = stunDuration;
+            //cc.Move((transform.forward * -1 * speed + dir) * Time.deltaTime);
+            animator.SetTrigger("damage");
+        }
     }
     public void StartGoalAnim()
     {

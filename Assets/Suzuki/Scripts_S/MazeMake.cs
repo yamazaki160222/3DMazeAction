@@ -113,7 +113,7 @@ public class MazeMake : MonoBehaviour
 				}
 				else
 				{
-					Instantiate(groundObject, new Vector3(x, 0, y), Quaternion.identity).transform.parent = obj.transform;
+					Instantiate(groundObject, new Vector3(x, -0.5f, y), Quaternion.identity).transform.parent = obj.transform;
 				}
 			}
 		}

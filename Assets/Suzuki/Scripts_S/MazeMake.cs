@@ -24,7 +24,13 @@ public class MazeMake : MonoBehaviour
 	GameObject mazeParentObject;  // Mazaの親オブジェクトを設定
 
 	[SerializeField]
-	NavMeshSurface NavSur;		//NavMeshのBake用
+	NavMeshSurface NavSur;      //NavMeshのBake用
+
+	public int MapSize 
+	{
+		get => this.mapSize;
+		set => this.mapSize = value;
+	}
 
 	// Start is called before the first frame update
 	void Start()
@@ -113,7 +119,7 @@ public class MazeMake : MonoBehaviour
 				}
 				else
 				{
-					Instantiate(groundObject, new Vector3(x, -0.5f, y), Quaternion.identity).transform.parent = obj.transform;
+					Instantiate(groundObject, new Vector3(x, 0, y), Quaternion.identity).transform.parent = obj.transform;
 				}
 			}
 		}

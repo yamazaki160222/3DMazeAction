@@ -119,7 +119,7 @@ public class CharCon_Y : MonoBehaviour
     {
         string str = "Life:" + (defaultLife - life) + "/" + defaultLife;
         Debug.Log(str);
-        return life;
+        return defaultLife - life;
     }
     public int DefaultLife()
     {
@@ -196,9 +196,14 @@ public class CharCon_Y : MonoBehaviour
         {
             Item s = hit.gameObject.GetComponent<Item>();
             s.IsHit = false;
-            if (LifeUp())
+            switch (s.ItemNo)
             {
-                this.ItemNo = s.IdNo;
+                case 0:
+                    this.ItemNo = s.IdNo;
+                    break;
+                case 1:
+                    this.ItemNo = s.IdNo;
+                    break;
             }
         }
     }

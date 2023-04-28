@@ -48,8 +48,8 @@ public class CameraCon : MonoBehaviour
             cameraPos,
             cameraMoveSpeed * Time.deltaTime);
 
-        /*
-        RaycastHit hit;
+        
+        /*RaycastHit hit;
         //キャラクターとカメラの間に障害物があったら障害物の位置にカメラを移動させる
         if (Physics.Linecast(
             charaLookAtPosition.position,

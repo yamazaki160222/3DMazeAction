@@ -11,7 +11,7 @@ public class GameCon : MonoBehaviour
     [SerializeField] int enemysSet;
     [SerializeField] GameObject goal;
     [SerializeField] List<GameObject> items;
-    [SerializeField] int itemSet;
+    [SerializeField] int itemSet;//各アイテム生成数　基本１で
     [SerializeField] CameraCon cameraCon;
     [SerializeField] GoalEffect goalEffect;
     [SerializeField] MazeMake mazeMake;
@@ -22,6 +22,8 @@ public class GameCon : MonoBehaviour
     [SerializeField] float insPosiY_Player;
     [SerializeField] float insPosiY_Enemy;
     [SerializeField] float insPosiY_Goal;
+    [SerializeField] float gameTime = 30;
+    [SerializeField] float timePlus = 15;
     float time;
     float consoleTime = 0;//デバッグ用
     GameObject insPlayer;
@@ -45,7 +47,8 @@ public class GameCon : MonoBehaviour
         insItemList = new Dictionary<int, GameObject>();
         InsGoal();//ゴール生成
         InsEnemy();//エネミー生成
-        InsItem(0,0.5f);
+        InsItem(0, 0.5f);//(List items no,出現位置(高さ))
+        InsItem(1, 0.5f);//(List items no,出現位置(高さ))
 
         /*for(int i = 0; i < 10000; i++)//デバッグ用
         {
@@ -64,8 +67,9 @@ public class GameCon : MonoBehaviour
         EnemyHit();
         ItemHit();
         RemoveCheck();
-        //GameTime();
-        //ConsoleTime();//デバッグ用
+        TimeCount();
+        GameTime();
+        ConsoleTime();//デバッグ用
         Goal();
     }
 
@@ -235,14 +239,33 @@ public class GameCon : MonoBehaviour
 
     public float GameTime()//実時間取得
     {
-        time += Time.deltaTime;
+        float f = gameTime - TimeCount();
+        if (f <= 0)
+        {
+            f = 0;
+        }
+        return f;
+    }
+    public float TimeCount()
+    {
+        time = time + Time.deltaTime;
         return time;
+    }
+    bool TimePlus()
+    {
+        if (gameTime > 0)
+        {
+            gameTime += timePlus;
+            return true;
+        }
+        return false;
     }
     void ConsoleTime()//Debug用　コンソールに経過時間表示
     {
+        
         if (time - consoleTime >= 1)
         {
-            Debug.Log(time + "秒");
+            Debug.Log((int)GameTime() + "秒");
             consoleTime = time;
         }
     }
@@ -261,7 +284,7 @@ public class GameCon : MonoBehaviour
                 cpList.Add(j, insEnemyList[j]);
             }
             Debug.Log(insEnemyList);
-            foreach (int i in insEnemyList.Keys)
+            foreach (int i in cpList.Keys)
             {
                 GameObject g = insEnemyList[i];
                 SetIsHit h = g.GetComponent<SetIsHit>();
@@ -296,12 +319,18 @@ public class GameCon : MonoBehaviour
                         case 0:
                             if (charCon.LifeUp())
                             {
-                                Debug.Log("ItemIsHit");
+                                Debug.Log("ItemIsHit:LifeUp");
                                 ItemRemove(j);
                                 i.ThisDestroy();
                             }
                             break;
                         case 1:
+                            if (TimePlus())
+                            {
+                                Debug.Log("ItemIsHit:TimePlus");
+                                ItemRemove(j);
+                                i.ThisDestroy();
+                            }
                             break;
                         default:
                             break;

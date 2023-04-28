@@ -127,7 +127,7 @@ public class CharCon_Y : MonoBehaviour
     }
     public bool LifeUp()
     {
-        if(life > 0 && life <= defaultLife)
+        if(life > 0 && life < defaultLife)
         {
             life--;
             Debug.Log("LifeUp:true");
@@ -182,7 +182,7 @@ public class CharCon_Y : MonoBehaviour
         if (hit.gameObject.tag == "Enemy")
         {
             SetIsHit s = hit.gameObject.GetComponent<SetIsHit>();
-            s.IsHit = false;
+            s.IsHit = true;
             this.EnemyNo = s.IdNo;
             HitAction();
         }
@@ -195,7 +195,7 @@ public class CharCon_Y : MonoBehaviour
         if (hit.gameObject.tag == "Item")
         {
             Item s = hit.gameObject.GetComponent<Item>();
-            s.IsHit = false;
+            s.IsHit = true;
             switch (s.ItemNo)
             {
                 case 0:

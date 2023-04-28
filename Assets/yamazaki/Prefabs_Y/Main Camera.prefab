@@ -30,7 +30,8 @@ Transform:
   m_LocalRotation: {x: -0.49242336, y: 0.0007594735, z: -0.0004296894, w: -0.8703554}
   m_LocalPosition: {x: -0.08699989, y: 2.33, z: -0.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 3569690580821434716}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 59, y: -360.1, z: 0}
@@ -116,12 +117,16 @@ MonoBehaviour:
   player: {fileID: 7205719038485501694, guid: a780da896ca904035b33f90d86b0ba4d, type: 3}
   enemys:
   - {fileID: 7685826682651074682, guid: 4198cf27ed073774ba2cf13d2954020f, type: 3}
-  enemysSet: 1
+  - {fileID: 5809785688859520429, guid: 60c19f87f7f5c9741a62b02cf455da7f, type: 3}
+  - {fileID: 1943122891074616877, guid: 349bcef1ea27c79458eb13f68ae59b4c, type: 3}
+  enemysSet: 3
   goal: {fileID: 4715629849379292718, guid: e801e87454e718741a82e88ec0bce456, type: 3}
   items:
   - {fileID: 4350356837435788253, guid: 3526425840546ed4d9defaaf1c58042a, type: 3}
+  - {fileID: 7965112866504827747, guid: 23555dcc67566f9438b2f1f487039840, type: 3}
   itemSet: 1
   cameraCon: {fileID: 1465415114262540943}
+  goalEffect: {fileID: 0}
   mazeMake: {fileID: 0}
   mapSize: 7
   startPosiOffset_x: 1
@@ -129,3 +134,85 @@ MonoBehaviour:
   insPosiY_Player: 0
   insPosiY_Enemy: 0
   insPosiY_Goal: 0
+  gameTime: 30
+  timePlus: 15
+--- !u!1001 &1666671042
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1465415114262540940}
+    m_Modifications:
+    - target: {fileID: 3569690582378610846, guid: a08f305751e5471458875e1ff3e3ca88,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569690582378610846, guid: a08f305751e5471458875e1ff3e3ca88,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569690582378610846, guid: a08f305751e5471458875e1ff3e3ca88,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569690582378610846, guid: a08f305751e5471458875e1ff3e3ca88,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.8191521
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569690582378610846, guid: a08f305751e5471458875e1ff3e3ca88,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569690582378610846, guid: a08f305751e5471458875e1ff3e3ca88,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569690582378610846, guid: a08f305751e5471458875e1ff3e3ca88,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.57357645
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569690582378610846, guid: a08f305751e5471458875e1ff3e3ca88,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569690582378610846, guid: a08f305751e5471458875e1ff3e3ca88,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -110
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569690582378610846, guid: a08f305751e5471458875e1ff3e3ca88,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569690582378610846, guid: a08f305751e5471458875e1ff3e3ca88,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6320764734043755677, guid: a08f305751e5471458875e1ff3e3ca88,
+        type: 3}
+      propertyPath: m_Name
+      value: GoalEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 6320764734043755677, guid: a08f305751e5471458875e1ff3e3ca88,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a08f305751e5471458875e1ff3e3ca88, type: 3}
+--- !u!4 &3569690580821434716 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3569690582378610846, guid: a08f305751e5471458875e1ff3e3ca88,
+    type: 3}
+  m_PrefabInstance: {fileID: 1666671042}
+  m_PrefabAsset: {fileID: 0}

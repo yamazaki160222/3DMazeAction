@@ -14,8 +14,7 @@ public class GameCon : MonoBehaviour
     [SerializeField] int itemSet;//各アイテム生成数　基本１で
     [SerializeField] CameraCon cameraCon;
     [SerializeField] GoalEffect goalEffect;
-    [SerializeField] MazeMake mazeMake;
-    //[SerializeField] MazeMake mazeMake;//マップ生成スクリプト
+    [SerializeField] MazeMake mazeMake;//マップ生成スクリプト
     [SerializeField] int mapSize;
     [SerializeField] int startPosiOffset_x = 1;
     [SerializeField] int startPosiOffset_z = 1;
@@ -41,7 +40,7 @@ public class GameCon : MonoBehaviour
     void Start()
     {
 
-        //mapSize = mazeMake.mapSize;//マップ生成スクリプトからマップサイズを取得
+        mapSize = mazeMake.MapSize;//マップ生成スクリプトからマップサイズを取得
         InsPlayer();
         insEnemyList = new Dictionary<int, GameObject>();
         insItemList = new Dictionary<int, GameObject>();
@@ -67,7 +66,8 @@ public class GameCon : MonoBehaviour
         EnemyHit();
         ItemHit();
         RemoveCheck();
-        TimeCount();
+        time += Time.deltaTime;
+        Debug.Log((int)(gameTime - time) + "秒");
         GameTime();
         ConsoleTime();//デバッグ用
         Goal();
@@ -159,7 +159,7 @@ public class GameCon : MonoBehaviour
     }
     void InsItem(int i,float posiY)
     {
-        if(items.Count > 0)
+        if(items.Count >= i + 1)
         {
             for (int j = 0; j < itemSet; j++)
             {
@@ -239,21 +239,17 @@ public class GameCon : MonoBehaviour
 
     public float GameTime()//残時間
     {
-        float f = gameTime - TimeCount();
-        if (f <= 0)
+        float f = gameTime - time;
+        if (f < 0)
         {
             f = 0;
         }
         return f;
     }
-    public float TimeCount()//時間取得
-    {
-        time = time + Time.deltaTime;
-        return time;
-    }
+    
     bool TimePlus()
     {
-        if (gameTime > 0)
+        if (GameTime() > 0)
         {
             gameTime += timePlus;
             return true;
@@ -264,7 +260,6 @@ public class GameCon : MonoBehaviour
     {
         if (time - consoleTime >= 1)
         {
-            Debug.Log((int)GameTime() + "秒");
             consoleTime = time;
         }
     }
@@ -275,17 +270,17 @@ public class GameCon : MonoBehaviour
 
     void EnemyHit()
     {
-        if(insEnemyList != null && insEnemyList.Count != 0)
+        if (insEnemyList != null && insEnemyList.Count != 0)
         {
             Dictionary<int, GameObject> cpList = new Dictionary<int, GameObject>();
-            foreach (int j in insEnemyList.Keys)
+            foreach (int i in insEnemyList.Keys)
             {
-                cpList.Add(j, insEnemyList[j]);
+                cpList.Add(i, insEnemyList[i]);
             }
-            Debug.Log(insEnemyList);
             foreach (int i in cpList.Keys)
             {
-                GameObject g = insEnemyList[i];
+                GameObject g = cpList[i];
+                Debug.Log("SetIsHit:"+ g);
                 SetIsHit h = g.GetComponent<SetIsHit>();
                 if (h.IsHit == true)
                 {
@@ -295,6 +290,7 @@ public class GameCon : MonoBehaviour
                     EnemyRemove(i);
                 }
             }
+            Debug.Log("cpList:" + cpList.Count);
         }
     }
     public void ItemHit()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CanvasController : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class CanvasController : MonoBehaviour
     CharCon_Y charCon_Y;
     bool a_flag;
     float a_color;
+    AudioSource se;
 
     // Start is called before the first frame update
     void Start()
@@ -26,15 +28,22 @@ public class CanvasController : MonoBehaviour
         mainText.text = "Start!!";
         a_flag = true;
         a_color = 1;
+        se = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
-    {
+    { 
         if (charCon_Y.GetIsGoal() == true)
         {
-            mainText.text = "StageClear!!\nTap to NextStage";
+            mainText.text = "Congratulations!!\n\nTap to NextStage";
             mainText.color = new Color(0, 0, 0, 1);
+
+            if (Input.GetKey(KeyCode.Return))
+            {
+                se.Play();
+                SceneManager.LoadScene("AutoMaze");
+            }
         }
         else
         {

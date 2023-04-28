@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stage1Kai.unity
     guid: b389a2b7c664584489d4381ff4a604bc
+  - enabled: 1
+    path: Assets/Suzuki/AutoMaze.unity
+    guid: 0b4b5b967e97d2f4e988ad8c5cfa2bfc
   m_configObjects: {}

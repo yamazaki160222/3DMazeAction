@@ -21,10 +21,10 @@ public class CameraCon : MonoBehaviour
     [SerializeField]
     private Vector3 baseRot = new Vector3(0f, 0f, 0f);
     //障害物とするレイヤー
-    //[SerializeField]
-    //LayerMask abstacleLayer;
-    //[SerializeField]
-    //float ContactPos = 1.3f;
+    [SerializeField]
+    LayerMask abstacleLayer;
+    [SerializeField]
+    float ContactPos = 1.3f;
 
 
     public void setTransform(Transform transform)
@@ -49,7 +49,7 @@ public class CameraCon : MonoBehaviour
             cameraMoveSpeed * Time.deltaTime);
 
         
-        /*RaycastHit hit;
+        RaycastHit hit;
         //キャラクターとカメラの間に障害物があったら障害物の位置にカメラを移動させる
         if (Physics.Linecast(
             charaLookAtPosition.position,
@@ -70,7 +70,7 @@ public class CameraCon : MonoBehaviour
             Color.red,
             0f,
             false);
-        */
+        
 
         //　スピードを考慮しない場合はLookAtで出来る
         //transform.LookAt(charaTra.position);

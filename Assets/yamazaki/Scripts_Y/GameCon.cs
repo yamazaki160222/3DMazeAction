@@ -237,7 +237,7 @@ public class GameCon : MonoBehaviour
         sP.Player = insPlayer;
     }
 
-    public float GameTime()//実時間取得
+    public float GameTime()//残時間
     {
         float f = gameTime - TimeCount();
         if (f <= 0)
@@ -246,7 +246,7 @@ public class GameCon : MonoBehaviour
         }
         return f;
     }
-    public float TimeCount()
+    public float TimeCount()//時間取得
     {
         time = time + Time.deltaTime;
         return time;
@@ -262,7 +262,6 @@ public class GameCon : MonoBehaviour
     }
     void ConsoleTime()//Debug用　コンソールに経過時間表示
     {
-        
         if (time - consoleTime >= 1)
         {
             Debug.Log((int)GameTime() + "秒");

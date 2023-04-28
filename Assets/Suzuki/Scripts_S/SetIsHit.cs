@@ -6,11 +6,17 @@ public class SetIsHit : MonoBehaviour
 {
 
     [SerializeField] bool isHit = false; //Playerに当たったかどうか
+    [SerializeField] int idNo;
 
     public bool IsHit
     {
         get => this.isHit;
         set => this.isHit = value;
+    }
+    public int IdNo
+    {
+        get => this.idNo;
+        set => this.idNo = value;
     }
 
     void OnCollisionEnter(Collision collision)

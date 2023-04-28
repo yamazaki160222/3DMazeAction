@@ -31,6 +31,9 @@ public class CameraCon : MonoBehaviour
     {
         charaLookAtPosition = transform;
     }
+    private void Start()
+    {
+    }
 
     // Update is called once per frame
     void Update()

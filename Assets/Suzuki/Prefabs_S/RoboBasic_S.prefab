@@ -824,6 +824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHit: 0
+  idNo: 0
 --- !u!54 &54102715659142354
 Rigidbody:
   m_ObjectHideFlags: 0

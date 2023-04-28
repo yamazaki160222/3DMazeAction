@@ -188,6 +188,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1172696158, guid: 8ccd3d4c08060c243af810b6562eda99, type: 3}
+      propertyPath: enemys.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1172696158, guid: 8ccd3d4c08060c243af810b6562eda99, type: 3}
+      propertyPath: enemys.Array.data[1]
+      value: 
+      objectReference: {fileID: 5253762927692087174, guid: ad658efa2480fc04c8dc756c2c0ba0ff,
+        type: 3}
+    - target: {fileID: 1172696158, guid: 8ccd3d4c08060c243af810b6562eda99, type: 3}
+      propertyPath: enemys.Array.data[0]
+      value: 
+      objectReference: {fileID: 5809785688859520429, guid: 60c19f87f7f5c9741a62b02cf455da7f,
+        type: 3}
     - target: {fileID: 1465415114262540940, guid: 8ccd3d4c08060c243af810b6562eda99,
         type: 3}
       propertyPath: m_LocalPosition.x

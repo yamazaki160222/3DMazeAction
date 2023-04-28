@@ -10,7 +10,11 @@ public class GameCon : MonoBehaviour
     [SerializeField] List<GameObject> enemys;
     [SerializeField] int enemysSet;
     [SerializeField] GameObject goal;
+    [SerializeField] List<GameObject> items;
+    [SerializeField] int itemSet;
     [SerializeField] CameraCon cameraCon;
+    [SerializeField] GoalEffect goalEffect;
+    [SerializeField] MazeMake mazeMake;
     //[SerializeField] MazeMake mazeMake;//マップ生成スクリプト
     [SerializeField] int mapSize;
     [SerializeField] int startPosiOffset_x = 1;
@@ -22,7 +26,10 @@ public class GameCon : MonoBehaviour
     float consoleTime = 0;//デバッグ用
     GameObject insPlayer;
     GameObject insGoal;
-    List<GameObject> insObjList;
+    [SerializeField] Dictionary<int, GameObject> insEnemyList;
+    int enemyNo = 1;
+    [SerializeField] Dictionary<int, GameObject> insItemList;
+    int itemNo = 1;
     CharCon_Y  charCon;
 
 
@@ -31,17 +38,20 @@ public class GameCon : MonoBehaviour
     void Start()
     {
 
-        //mapSize = mazeMake.getMapSize();//マップ生成スクリプトからマップサイズを取得
-
+        //mapSize = mazeMake.mapSize;//マップ生成スクリプトからマップサイズを取得
         InsPlayer();
-        insObjList = new List<GameObject>();
+        insEnemyList = new Dictionary<int, GameObject>();
+        insItemList = new Dictionary<int, GameObject>();
         InsGoal();//ゴール生成
         InsEnemy();//エネミー生成
+        InsItem(0,0.5f);
 
         /*for(int i = 0; i < 10000; i++)//デバッグ用
         {
             Debug.Log(insPosiCheck(0));
         }*/
+        Debug.Log(insEnemyList);
+        Debug.Log(insItemList);
         Debug.Log("Start()終了");
 
     }
@@ -50,9 +60,11 @@ public class GameCon : MonoBehaviour
     void Update()
     {
         EnemyHit();
+        ItemHit();
+        RemoveCheck();
         //GameTime();
         //ConsoleTime();//デバッグ用
-        //Goal();
+        Goal();
     }
 
     Vector3 ObjectPosition(int mapSize,float y)//プレイヤー、エネミーのポジションを設定
@@ -125,15 +137,34 @@ public class GameCon : MonoBehaviour
         {
             for (int i = 0; i < enemysSet; i++)
             {
-                GameObject e = InsObject(enemys[SetEneNo()], insPosiY_Enemy);
-                e.transform.position = insPosiCheck(insPosiY_Enemy);
+                GameObject e = InsObject(enemys[SetNo(enemys)], insPosiY_Enemy);
+                e.transform.position = insPosiCheck(insEnemyList, insPosiY_Enemy);
                 SetPlayer(e);
-                insObjList.Add(e);
+                SetIsHit s = e.GetComponent<SetIsHit>();
+                s.IdNo = enemyNo;
+                insEnemyList.Add(enemyNo, e);
+                enemyNo++;
             }
         }
         else
         {
             Debug.Log("enemyが設定されていません");
+        }
+    }
+    void InsItem(int i,float posiY)
+    {
+        if(items.Count > 0)
+        {
+            for (int j = 0; j < itemSet; j++)
+            {
+                GameObject item = InsObject(items[i], posiY);
+                item.transform.position = insPosiCheck(insItemList, posiY);
+                SetIsHit s = item.GetComponent<SetIsHit>();
+                insItemList.Add(itemNo, item);
+                s.IdNo = itemNo;
+                itemNo++;
+            }
+
         }
     }
     GameObject InsObject(GameObject gameObject,float f)//オブジェクト（エネミー）をマップに追加
@@ -151,7 +182,7 @@ public class GameCon : MonoBehaviour
         }
        
     }
-    Vector3 insPosiCheck(float f)
+    Vector3 insPosiCheck(Dictionary<int, GameObject> list,float f)
     {
         Vector3 posi = new Vector3();
         bool b = true;
@@ -162,10 +193,11 @@ public class GameCon : MonoBehaviour
             if ((posi.x != insPlayer.transform.position.x || posi.z != insPlayer.transform.position.z) &&
                 (posi.x != insGoal.transform.position.x || posi.z != insGoal.transform.position.z))//プレイヤー、ゴールのポジションチェック
             {
-                if (insObjList.Count != 0)//生成済みエネミーがいないか確認
+                if (list.Count != 0)//生成済みエネミーがいないか確認
                 {
-                    foreach (GameObject e in insObjList)//eに生成済みのエネミーを代入
+                    foreach (int i in list.Keys)//eに生成済みのエネミーを代入
                     {
+                        GameObject e = list[i];
                         Debug.Log(e.transform.position);
                         if (posi.x == e.transform.position.x || posi.z == e.transform.position.z)//生成済みエネミーのポジションチェック
                         {
@@ -186,9 +218,9 @@ public class GameCon : MonoBehaviour
         return posi;
     }
 
-    int SetEneNo()
+    int SetNo(List<GameObject> list)
     {
-        return Random.Range(0, enemys.Count);
+        return Random.Range(0, list.Count);
     }
 
     
@@ -219,23 +251,110 @@ public class GameCon : MonoBehaviour
 
     void EnemyHit()
     {
-        foreach(GameObject g in insObjList)
+        if(insEnemyList != null && insEnemyList.Count != 0)
         {
-            SetIsHit h = g.GetComponent<SetIsHit>();
-            if (h.IsHit == true)
+            Dictionary<int, GameObject> cpList = new Dictionary<int, GameObject>();
+            foreach (int j in insEnemyList.Keys)
             {
-                Debug.Log("IsHit");
-                charCon.IsStun = true;
-                charCon.HitAction();
-                h.IsHit = false;
+                cpList.Add(j, insEnemyList[j]);
+            }
+            Debug.Log(insEnemyList);
+            foreach (int i in insEnemyList.Keys)
+            {
+                GameObject g = insEnemyList[i];
+                SetIsHit h = g.GetComponent<SetIsHit>();
+                if (h.IsHit == true)
+                {
+                    Debug.Log("EnemyIsHit");
+                    charCon.IsStun = true;
+                    charCon.HitAction();
+                    EnemyRemove(i);
+                }
             }
         }
+    }
+    public void ItemHit()
+    {
+        if (insItemList != null && insItemList.Count != 0)
+        {
+            Dictionary<int, GameObject> cpList = new Dictionary<int, GameObject>();
+            foreach(int j in insItemList.Keys)
+            {
+                cpList.Add(j, insItemList[j]);
+            }
+            foreach (int j in cpList.Keys)
+            {
+                GameObject item = insItemList[j];
+                Item i = item.GetComponent<Item>();
+                SetIsHit h = item.GetComponent<SetIsHit>();
+                if (h.IsHit == true)
+                {
+                    h.IsHit = false;
+                    switch (i.ItemNo)
+                    {
+                        case 0:
+                            if (charCon.LifeUp())
+                            {
+                                Debug.Log("ItemIsHit");
+                                ItemRemove(j);
+                                i.ThisDestroy();
+                            }
+                            break;
+                        case 1:
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+    }
+    void RemoveCheck()
+    {
+        if (charCon.EnemyNo > 0)
+        {
+            EnemyRemove(charCon.EnemyNo);
+            charCon.EnemyNo = 0;
+        }
+        if(charCon.ItemNo > 0)
+        {
+            ItemRemove(charCon.ItemNo);
+            charCon.ItemNo = 0;
+        }
+    }
+    void EnemyRemove(int i)
+    {
+        GameObject g = insEnemyList[i].gameObject;
+        if (insEnemyList.Remove(i))
+        {
+            Destroy(g);
+            Debug.Log("EnemyRemove:true");
+        }
+        else
+        {
+            Debug.Log("EnemyRemove:false");
+        }
+    }
+    void ItemRemove(int i)
+    {
+        GameObject g = insItemList[i].gameObject;
+        if (insItemList.Remove(i))
+        {
+            Destroy(g);
+            Debug.Log("ItemRemove:true");
+        }
+        else
+        {
+            Debug.Log("ItemRemove:false");
+        }
+
     }
     void Goal()
     {
         if (charCon.GetIsGoal())
         {
             Debug.Log("GameCon_Goal:" + charCon.GetIsGoal());
+            goalEffect.OnEffect();
             charCon.StartGoalAnim();
         }
     }

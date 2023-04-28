@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Suzuki/Title.unity
+    guid: 43c37676f1bae70408868fe5d9c25bab
+  - enabled: 1
+    path: Assets/Scenes/Stage1Kai.unity
+    guid: b389a2b7c664584489d4381ff4a604bc
   m_configObjects: {}

@@ -24,7 +24,13 @@ public class MazeMake : MonoBehaviour
 	GameObject mazeParentObject;  // Mazaの親オブジェクトを設定
 
 	[SerializeField]
-	NavMeshSurface NavSur;		//NavMeshのBake用
+	NavMeshSurface NavSur;      //NavMeshのBake用
+
+	public int MapSize 
+	{
+		get => this.mapSize;
+		set => this.mapSize = value;
+	}
 
 	// Start is called before the first frame update
 	void Start()

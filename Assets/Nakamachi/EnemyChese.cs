@@ -27,20 +27,20 @@ public class EnemyChese : MonoBehaviour
 
     }
 
-    void OnCollisionEnter(Collision collision)//ネジコと衝突したときの処理
+    /*void OnCollisionEnter(Collision collision)//ネジコと衝突したときの処理
     {
         if (collision.gameObject.tag == "Player")
         {
             Destroy(this.gameObject);//仮で消しています
         }
-    }
-    void OnTriggerEnter(Collider other)//ゴールに侵入したときの処理
+    }*/
+    /*void OnTriggerEnter(Collider other)//ゴールに侵入したときの処理
     {
         if (other.gameObject.tag == "Goal")
         {
             Destroy(this.gameObject);//仮で消しています
         }
-    }
+    }*/
 
 
 

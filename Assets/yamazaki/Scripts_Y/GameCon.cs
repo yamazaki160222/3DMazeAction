@@ -270,32 +270,33 @@ public class GameCon : MonoBehaviour
 
     void EnemyHit()
     {
-        if (insEnemyList != null && insEnemyList.Count != 0)
+        if (insEnemyList != null && insEnemyList.Count != 0 && charCon.EnemyNo == 0)
         {
-            Dictionary<int, GameObject> cpList = new Dictionary<int, GameObject>();
+            int j = 0;
+            bool b = false;
             foreach (int i in insEnemyList.Keys)
             {
-                cpList.Add(i, insEnemyList[i]);
-            }
-            foreach (int i in cpList.Keys)
-            {
-                GameObject g = cpList[i];
-                Debug.Log("SetIsHit:"+ g);
+                GameObject g = insEnemyList[i];
+                Debug.Log("SetIsHit:" + g);
                 SetIsHit h = g.GetComponent<SetIsHit>();
                 if (h.IsHit == true)
                 {
-                    Debug.Log("EnemyIsHit");
-                    charCon.IsStun = true;
-                    charCon.HitAction();
-                    EnemyRemove(i);
+                    b = true;
+                    j = i;
                 }
             }
-            Debug.Log("cpList:" + cpList.Count);
+            if (b)
+            {
+                Debug.Log("EnemyIsHit");
+                charCon.IsStun = true;
+                charCon.HitAction();
+                EnemyRemove(j);
+            }
         }
     }
     public void ItemHit()
     {
-        if (insItemList != null && insItemList.Count != 0)
+        if (insItemList != null && insItemList.Count != 0 && charCon.ItemNo == 0)
         {
             Dictionary<int, GameObject> cpList = new Dictionary<int, GameObject>();
             foreach(int j in insItemList.Keys)
@@ -374,11 +375,39 @@ public class GameCon : MonoBehaviour
         }
 
     }
+    void AllRemove()
+    {
+        if(insEnemyList != null && insEnemyList.Count > 0)
+        {
+            List<int> list = new List<int>();
+            foreach (int i in insEnemyList.Keys)
+            {
+                list.Add(i);
+            }
+            foreach(int i in list)
+            {
+                EnemyRemove(i);
+            }
+        }
+        if(insItemList != null && insItemList.Count > 0)
+        {
+            List<int> list = new List<int>();
+            foreach(int i in insItemList.Keys)
+            {
+                list.Add(i);
+            }
+            foreach(int i in list)
+            {
+                ItemRemove(i);
+            }
+        }
+    }
     void Goal()
     {
         if (goalCheck && charCon.GetIsGoal())
         {
             Debug.Log("GameCon_Goal:" + charCon.GetIsGoal());
+            AllRemove();
             goalEffect.OnEffect();
             charCon.StartGoalAnim();
             goalCheck = false;

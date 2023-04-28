@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1842762891025283781}
   - component: {fileID: 7316954915050573669}
   m_Layer: 0
-  m_Name: GoalEffect
+  m_Name: GoalEffect_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

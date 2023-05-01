@@ -8,6 +8,7 @@ public class EnemyChese : MonoBehaviour
     public float traceDist = 100.0f;//追跡半径
     NavMeshAgent nav;
     //bool EnemyEye;//視界方向にいるか
+    bool cheseFlag;
     public float chasetimeLimit = 2.0f;//目標を見失ってから追跡を続ける時間
     float chesetime;//目標を見失ってからの経過時間
 
@@ -16,7 +17,7 @@ public class EnemyChese : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
         GetPlayer();
         StartCoroutine(CheckDist());
-        nav.isStopped = true;//追跡無効の状態でスタート
+        nav.isStopped = false;//追跡有効の状態でスタート
 
     }
     void GetPlayer()
@@ -24,6 +25,7 @@ public class EnemyChese : MonoBehaviour
         SetPlayer sP = GetComponent<SetPlayer>();
         Debug.Log("SetPlayer:" + sP);//デバッグ用
         player = sP.Player;
+        cheseFlag = false;
 
     }
 
@@ -46,6 +48,10 @@ public class EnemyChese : MonoBehaviour
 
     IEnumerator CheckDist()//コルーチン処理
     {
+        Vector3 startPosition = this.transform.position;
+        Vector3 startAngle = this.transform.forward;
+        nav.SetDestination(startPosition);
+
         for (int i = 0; i < 4; i++)
         {
             Vector3 center = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
@@ -83,34 +89,28 @@ public class EnemyChese : MonoBehaviour
 
             float angle = Vector3.Angle(this.transform.forward, player.transform.position - this.transform.position);//敵から見たネジコの方向
 
-            if (nav.isStopped) { Debug.DrawRay(enemycenter, vec * dist, Color.blue, 0.2f); }//追跡してないとき青色線
-            else { Debug.DrawRay(enemycenter, vec * dist, Color.red, 0.2f); }//追跡時赤線
-
-
 
             if (dist < traceDist && hit.collider.gameObject.tag == "Player" && angle < 90)
             //(ネジコは追跡範囲か&&視線Rayが衝突したオブジェクトのタグは"Playerか&&視界左右90度以内か")
             {
+                cheseFlag = true;
                 chesetime = 0;//視認追跡
 
                 //プレイヤーの位置を目的地に設定
                 nav.SetDestination(player.transform.position);//標的の設定
                 this.transform.rotation = quaternion; //標的へ視界を向ける
-
-                //追跡
-                nav.isStopped = false;
             }
             else
             {
-
-                if (nav.isStopped == false)//追跡中に追跡条件を満たさなくなった場合
+                if (cheseFlag)
                 {
                     nav.SetDestination(player.transform.position);
                     this.transform.rotation = quaternion;
                     chesetime++;//見失ってからの追跡カウント開始
                     if (chesetime > chasetimeLimit * 5)//指定秒数見失ったら追跡を終了する※５倍はコルーチン関数の秒数を変えるとき変更して下さい
                     {
-                        nav.isStopped = true;
+                        nav.SetDestination(startPosition);
+                        this.transform.forward = startAngle;
                     }
                 }
             }

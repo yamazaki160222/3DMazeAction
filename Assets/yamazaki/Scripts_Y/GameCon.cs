@@ -23,10 +23,14 @@ public class GameCon : MonoBehaviour
     [SerializeField] float insPosiY_Goal;
     [SerializeField] float gameTime = 30;
     [SerializeField] float timePlus = 15;
+    [SerializeField] bool isGameOver;
+    [SerializeField] bool isGoal;
+
     float time;
     float consoleTime = 0;//デバッグ用
     GameObject insPlayer;
     GameObject insGoal;
+
     [SerializeField] Dictionary<int, GameObject> insEnemyList;
     int enemyIdNo = 1;
     [SerializeField] Dictionary<int, GameObject> insItemList;
@@ -39,8 +43,18 @@ public class GameCon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        mapSize = mazeMake.MapSize;//マップ生成スクリプトからマップサイズを取得
+        if(LifeScore < 3)
+        {
+            LifeScore = 3;
+        }
+        if(TimeScore < 30)
+        {
+            TimeScore = 30;
+        }
+        IsGameOver = false;
+        isGoal = false;
+        mapSize = mazeMake.MapSize;
+        //mapSize = 3;//デバッグ用
         InsPlayer();
         insEnemyList = new Dictionary<int, GameObject>();
         insItemList = new Dictionary<int, GameObject>();
@@ -406,18 +420,56 @@ public class GameCon : MonoBehaviour
     {
         if (goalCheck && charCon.GetIsGoal())
         {
+            IsGoal = true;
             Debug.Log("GameCon_Goal:" + charCon.GetIsGoal());
+            StageScore += 1;
             AllRemove();
             goalEffect.OnEffect();
             charCon.StartGoalAnim();
             goalCheck = false;
+           
         }
     }
     void GameOver()
     {
         if (charCon.Life() >= charCon.DefaultLife())
         {
+            IsGameOver = true;
             Debug.Log("GameCon_GameOver");
         }
     }
+    public bool IsGameOver
+    {
+        get => this.isGameOver;
+        set => this.isGameOver = value;
+    }
+    public bool IsGoal
+    {
+        get => this.isGoal;
+        set => this.isGoal = value;
+    }
+    
+    void StageScoreCheck()
+    {
+        if (PlayerPrefs.GetInt("HighScore") < StageScore)
+        {
+            PlayerPrefs.SetInt("HighScore", StageScore);
+        }
+    }
+    public int StageScore
+    {
+        get => PlayerPrefs.GetInt("StageScore");
+        set => PlayerPrefs.SetInt("StageScore", value);
+    }
+    public int LifeScore
+    {
+        get => PlayerPrefs.GetInt("LifeScore");
+        set => PlayerPrefs.SetInt("LifeScore", value);
+    }
+    public float TimeScore
+    {
+        get => PlayerPrefs.GetFloat("TimeScore");
+        set => PlayerPrefs.SetFloat("TimeScore", value);
+    }
+
 }

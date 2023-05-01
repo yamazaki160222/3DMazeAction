@@ -846,6 +846,10 @@ PrefabInstance:
       propertyPath: mazeMake
       value: 
       objectReference: {fileID: 347617761}
+    - target: {fileID: 1172696158, guid: 8ccd3d4c08060c243af810b6562eda99, type: 3}
+      propertyPath: mapSize
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1465415114262540940, guid: 8ccd3d4c08060c243af810b6562eda99,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -901,23 +905,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1465415114262540943, guid: 8ccd3d4c08060c243af810b6562eda99,
-        type: 3}
-      propertyPath: basePos.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1465415114262540943, guid: 8ccd3d4c08060c243af810b6562eda99,
-        type: 3}
-      propertyPath: basePos.y
-      value: 0.35
-      objectReference: {fileID: 0}
     - target: {fileID: 1465415114262540947, guid: 8ccd3d4c08060c243af810b6562eda99,
         type: 3}
       propertyPath: m_Name
       value: Main Camera (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1475254125, guid: 8ccd3d4c08060c243af810b6562eda99, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ccd3d4c08060c243af810b6562eda99, type: 3}
 --- !u!4 &1475254123 stripped
 Transform:

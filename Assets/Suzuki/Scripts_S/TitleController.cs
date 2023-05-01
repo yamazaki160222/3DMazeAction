@@ -14,8 +14,8 @@ public class TitleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        BgmManager.Instance.GetComponent<BgmManager>().OnPlay = true;
-        BgmManager.Instance.GetComponent<AudioSource>().Play();
+        //BgmManager.Instance.GetComponent<BgmManager>().OnPlay = true;
+        //BgmManager.Instance.GetComponent<AudioSource>().Play();
 
         GetChildren(titleWalls);
         se = GetComponent<AudioSource>();
@@ -44,6 +44,7 @@ public class TitleController : MonoBehaviour
     public void OnStartButtonClicked()
     {
         se.Play();
+        BgmManager.Instance.GetComponent<BgmManager>().OnPlay = false;
         Invoke("LoadScene", 0.5f);
 
     }
@@ -51,7 +52,6 @@ public class TitleController : MonoBehaviour
     void LoadScene()
     {
         BgmManager.Instance.GetComponent<BgmManager>().OnPlay = false;
-        BgmManager.Instance.SetActive(false);
         SceneManager.LoadScene("Stage1Kai");
     }
 

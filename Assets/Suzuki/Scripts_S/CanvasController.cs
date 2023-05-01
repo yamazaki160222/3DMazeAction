@@ -22,6 +22,7 @@ public class CanvasController : MonoBehaviour
     void Start()
     {
         BgmManager.Instance.GetComponent<BgmManager>().OnPlay = true;
+        BgmManager.Instance.SetActive(true);
         BgmManager.Instance.GetComponent<AudioSource>().Play();
 
         gameCon = mainCam.GetComponent<GameCon>();
@@ -44,7 +45,6 @@ public class CanvasController : MonoBehaviour
             a_flag = false;
 
             BgmManager.Instance.GetComponent<BgmManager>().OnPlay = false;
-            BgmManager.Instance.SetActive(false);
             Invoke("LoadScene", 3f);
         }
 

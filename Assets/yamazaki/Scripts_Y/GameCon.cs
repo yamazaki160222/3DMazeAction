@@ -39,8 +39,15 @@ public class GameCon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        mapSize = mazeMake.MapSize;//マップ生成スクリプトからマップサイズを取得
+        if(mazeMake != null)
+        {
+            Debug.Log("mapsize"+mazeMake.MapSize);
+            //mapSize = mazeMake.MapSize;//マップ生成スクリプトからマップサイズを取得
+        }
+        else
+        {
+            Debug.Log("mazeMake null");
+        }
         InsPlayer();
         insEnemyList = new Dictionary<int, GameObject>();
         insItemList = new Dictionary<int, GameObject>();

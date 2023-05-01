@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CanvasController : MonoBehaviour
 {
@@ -15,10 +16,14 @@ public class CanvasController : MonoBehaviour
     CharCon_Y charCon_Y;
     bool a_flag;
     float a_color;
+    AudioSource se;
 
     // Start is called before the first frame update
     void Start()
     {
+        BgmManager.Instance.GetComponent<BgmManager>().OnPlay = true;
+        BgmManager.Instance.GetComponent<AudioSource>().Play();
+
         gameCon = mainCam.GetComponent<GameCon>();
         player = mainCam.GetComponent<CameraCon>().charaLookAtPosition.gameObject;
         charCon_Y = player.GetComponent<CharCon_Y>();
@@ -26,15 +31,33 @@ public class CanvasController : MonoBehaviour
         mainText.text = "Start!!";
         a_flag = true;
         a_color = 1;
+        se = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if (charCon_Y.GetIsGoal() == true)
+    { 
+        if (charCon_Y.GetIsGameOver())
         {
-            mainText.text = "StageClear!!\nTap to NextStage";
+            mainText.text = "GameOver...";
             mainText.color = new Color(0, 0, 0, 1);
+            a_flag = false;
+
+            BgmManager.Instance.GetComponent<BgmManager>().OnPlay = false;
+            BgmManager.Instance.SetActive(false);
+            Invoke("LoadScene", 3f);
+        }
+
+        if (charCon_Y.GetIsGoal())
+        {
+            mainText.text = "Congratulations!!\n\nEnter to NextStage";
+            mainText.color = new Color(0, 0, 0, 1);
+
+            if (Input.GetKey(KeyCode.Return))
+            {
+                se.Play();
+                SceneManager.LoadScene("AutoMaze");
+            }
         }
         else
         {
@@ -78,6 +101,10 @@ public class CanvasController : MonoBehaviour
                 a_flag = false;
             }
         }
+    }
+    void LoadScene()
+    {
+        SceneManager.LoadScene("GameOver");
     }
 
     /*

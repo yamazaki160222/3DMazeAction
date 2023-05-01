@@ -22,6 +22,10 @@ public class SetIsHit : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         isHit = (collision.gameObject.CompareTag("Player")) ? true : false;
+        /*if (isHit)//デバッグ用
+        {
+            Debug.Log("isHit:true");
+        }*/
     }
 
     // Start is called before the first frame update

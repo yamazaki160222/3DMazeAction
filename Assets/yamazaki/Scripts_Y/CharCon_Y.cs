@@ -78,10 +78,10 @@ public class CharCon_Y : MonoBehaviour
                 Debug.Log("GetButtonDown_Jump");
                 Jump();
             }
-            if (Input.GetKeyDown(KeyCode.G))//デバッグ用
+            /*if (Input.GetKeyDown(KeyCode.G))//デバッグ用
             {
                 SetIsGoal(true);
-            }
+            }*/
             Move(acc);
         }
     }
@@ -117,9 +117,9 @@ public class CharCon_Y : MonoBehaviour
     }
     public int Life()
     {
-        string str = "life:" + (defaultLife - life) + "/" + defaultLife;
+        string str = "Life:" + (defaultLife - life) + "/" + defaultLife;
         Debug.Log(str);
-        return life;
+        return defaultLife - life;
     }
     public int DefaultLife()
     {
@@ -127,10 +127,11 @@ public class CharCon_Y : MonoBehaviour
     }
     public bool LifeUp()
     {
-        if(life > 0 && life <= defaultLife)
+        if(life > 0 && life < defaultLife)
         {
             life--;
             Debug.Log("LifeUp:true");
+            Life();
             return true;
         }
         Debug.Log("LifeUp:false");
@@ -181,7 +182,7 @@ public class CharCon_Y : MonoBehaviour
         if (hit.gameObject.tag == "Enemy")
         {
             SetIsHit s = hit.gameObject.GetComponent<SetIsHit>();
-            s.IsHit = false;
+            s.IsHit = true;
             this.EnemyNo = s.IdNo;
             HitAction();
         }
@@ -193,11 +194,16 @@ public class CharCon_Y : MonoBehaviour
         }
         if (hit.gameObject.tag == "Item")
         {
-            SetIsHit s = hit.gameObject.GetComponent<SetIsHit>();
-            s.IsHit = false;
-            if (LifeUp())
+            Item s = hit.gameObject.GetComponent<Item>();
+            s.IsHit = true;
+            switch (s.ItemNo)
             {
-                this.ItemNo = s.IdNo;
+                case 0:
+                    this.ItemNo = s.IdNo;
+                    break;
+                case 1:
+                    this.ItemNo = s.IdNo;
+                    break;
             }
         }
     }
@@ -224,11 +230,8 @@ public class CharCon_Y : MonoBehaviour
             {
                 dir.y -= gravity * Time.deltaTime;
                 Debug.Log("dir.y:" + dir.y); 
-                if (cc.isGrounded)
-                {
-                    dir.y = jumpPower;
-                    animator.SetBool("goal",true);
-                }
+                dir.y = jumpPower;
+                animator.SetBool("goal", true);
                 Debug.Log("dir.y:" + dir.y);
                 Move(0);
                 Debug.Log("GoalAnimCount:"+ i);

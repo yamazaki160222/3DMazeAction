@@ -201,12 +201,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleObject: {fileID: 6320764734043755677, guid: a08f305751e5471458875e1ff3e3ca88,
     type: 3}
-  posiOffset_x: 0
-  posiOffset_y: -2
-  posiOffset_z: -2
-  loteOffset_x: 0
-  loteOffset_y: 0
-  loteOffset_z: 0
+  posi_x: 0
+  posi_y: -2
+  posi_z: 2
+  lote_x: -110
+  lote_y: 0
+  lote_z: 0
 --- !u!1001 &2431161734651140138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -215,6 +215,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2431161735738160802}
     m_Modifications:
     - target: {fileID: 1172696158, guid: 8ccd3d4c08060c243af810b6562eda99, type: 3}
+      propertyPath: items.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1172696158, guid: 8ccd3d4c08060c243af810b6562eda99, type: 3}
       propertyPath: mazeMake
       value: 
       objectReference: {fileID: 2431161735738160801}
@@ -222,6 +226,11 @@ PrefabInstance:
       propertyPath: goalEffect
       value: 
       objectReference: {fileID: 567475132}
+    - target: {fileID: 1172696158, guid: 8ccd3d4c08060c243af810b6562eda99, type: 3}
+      propertyPath: items.Array.data[1]
+      value: 
+      objectReference: {fileID: 7965112866504827747, guid: 23555dcc67566f9438b2f1f487039840,
+        type: 3}
     - target: {fileID: 1465415114262540940, guid: 8ccd3d4c08060c243af810b6562eda99,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -275,6 +284,11 @@ PrefabInstance:
     - target: {fileID: 1465415114262540940, guid: 8ccd3d4c08060c243af810b6562eda99,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1465415114262540941, guid: 8ccd3d4c08060c243af810b6562eda99,
+        type: 3}
+      propertyPath: m_HDR
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1465415114262540943, guid: 8ccd3d4c08060c243af810b6562eda99,

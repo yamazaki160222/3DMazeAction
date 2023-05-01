@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1465415114262540946}
   - component: {fileID: 1465415114262540943}
   - component: {fileID: 1172696158}
+  - component: {fileID: 7147843138359412457}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -97,10 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charaLookAtPosition: {fileID: 0}
-  cameraMoveSpeed: 2.8
   cameraRotateSpeed: 120
-  basePos: {x: 0, y: 1.2, z: 1.8}
-  baseRot: {x: 0, y: 1.1, z: 0}
+  basePos: {x: 0, y: 0.35, z: 0}
+  baseRot_z: 0
 --- !u!114 &1172696158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,12 +116,16 @@ MonoBehaviour:
   player: {fileID: 7205719038485501694, guid: a780da896ca904035b33f90d86b0ba4d, type: 3}
   enemys:
   - {fileID: 7685826682651074682, guid: 4198cf27ed073774ba2cf13d2954020f, type: 3}
-  enemysSet: 1
+  - {fileID: 5809785688859520429, guid: 60c19f87f7f5c9741a62b02cf455da7f, type: 3}
+  - {fileID: 1943122891074616877, guid: 349bcef1ea27c79458eb13f68ae59b4c, type: 3}
+  enemysSet: 3
   goal: {fileID: 4715629849379292718, guid: e801e87454e718741a82e88ec0bce456, type: 3}
   items:
   - {fileID: 4350356837435788253, guid: 3526425840546ed4d9defaaf1c58042a, type: 3}
+  - {fileID: 7965112866504827747, guid: 23555dcc67566f9438b2f1f487039840, type: 3}
   itemSet: 1
   cameraCon: {fileID: 1465415114262540943}
+  goalEffect: {fileID: 7147843138359412457}
   mazeMake: {fileID: 0}
   mapSize: 7
   startPosiOffset_x: 1
@@ -129,3 +133,25 @@ MonoBehaviour:
   insPosiY_Player: 0
   insPosiY_Enemy: 0
   insPosiY_Goal: 0
+  gameTime: 30
+  timePlus: 15
+--- !u!114 &7147843138359412457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465415114262540947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddbd6479425cb9748b5ae7e56fb3e207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleObject: {fileID: 6320764734043755677, guid: a08f305751e5471458875e1ff3e3ca88,
+    type: 3}
+  posi_x: 0
+  posi_y: -2
+  posi_z: 2
+  lote_x: -110
+  lote_y: 0
+  lote_z: 0

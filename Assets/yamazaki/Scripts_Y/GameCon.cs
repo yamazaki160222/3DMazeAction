@@ -11,26 +11,28 @@ public class GameCon : MonoBehaviour
     [SerializeField] int enemysSet;
     [SerializeField] GameObject goal;
     [SerializeField] List<GameObject> items;
-    [SerializeField] int itemSet;
+    [SerializeField] int itemSet;//各アイテム生成数　基本１で
     [SerializeField] CameraCon cameraCon;
     [SerializeField] GoalEffect goalEffect;
-    [SerializeField] MazeMake mazeMake;
-    //[SerializeField] MazeMake mazeMake;//マップ生成スクリプト
+    [SerializeField] MazeMake mazeMake;//マップ生成スクリプト
     [SerializeField] int mapSize;
     [SerializeField] int startPosiOffset_x = 1;
     [SerializeField] int startPosiOffset_z = 1;
     [SerializeField] float insPosiY_Player;
     [SerializeField] float insPosiY_Enemy;
     [SerializeField] float insPosiY_Goal;
+    [SerializeField] float gameTime = 30;
+    [SerializeField] float timePlus = 15;
     float time;
     float consoleTime = 0;//デバッグ用
     GameObject insPlayer;
     GameObject insGoal;
     [SerializeField] Dictionary<int, GameObject> insEnemyList;
-    int enemyNo = 1;
+    int enemyIdNo = 1;
     [SerializeField] Dictionary<int, GameObject> insItemList;
-    int itemNo = 1;
+    int itemIdNo = 1;
     CharCon_Y  charCon;
+    bool goalCheck;
 
 
 
@@ -38,13 +40,14 @@ public class GameCon : MonoBehaviour
     void Start()
     {
 
-        //mapSize = mazeMake.mapSize;//マップ生成スクリプトからマップサイズを取得
+        mapSize = mazeMake.MapSize;//マップ生成スクリプトからマップサイズを取得
         InsPlayer();
         insEnemyList = new Dictionary<int, GameObject>();
         insItemList = new Dictionary<int, GameObject>();
         InsGoal();//ゴール生成
         InsEnemy();//エネミー生成
-        InsItem(0,0.5f);
+        InsItem(0, 0.5f);//(List items no,出現位置(高さ))
+        InsItem(1, 0.5f);//(List items no,出現位置(高さ))
 
         /*for(int i = 0; i < 10000; i++)//デバッグ用
         {
@@ -52,6 +55,7 @@ public class GameCon : MonoBehaviour
         }*/
         Debug.Log(insEnemyList);
         Debug.Log(insItemList);
+        goalCheck = true;
         Debug.Log("Start()終了");
 
     }
@@ -62,8 +66,10 @@ public class GameCon : MonoBehaviour
         EnemyHit();
         ItemHit();
         RemoveCheck();
-        //GameTime();
-        //ConsoleTime();//デバッグ用
+        time += Time.deltaTime;
+        Debug.Log((int)(gameTime - time) + "秒");
+        GameTime();
+        ConsoleTime();//デバッグ用
         Goal();
     }
 
@@ -141,9 +147,9 @@ public class GameCon : MonoBehaviour
                 e.transform.position = insPosiCheck(insEnemyList, insPosiY_Enemy);
                 SetPlayer(e);
                 SetIsHit s = e.GetComponent<SetIsHit>();
-                s.IdNo = enemyNo;
-                insEnemyList.Add(enemyNo, e);
-                enemyNo++;
+                s.IdNo = enemyIdNo;
+                insEnemyList.Add(enemyIdNo, e);
+                enemyIdNo++;
             }
         }
         else
@@ -153,16 +159,16 @@ public class GameCon : MonoBehaviour
     }
     void InsItem(int i,float posiY)
     {
-        if(items.Count > 0)
+        if(items.Count >= i + 1)
         {
             for (int j = 0; j < itemSet; j++)
             {
                 GameObject item = InsObject(items[i], posiY);
                 item.transform.position = insPosiCheck(insItemList, posiY);
-                SetIsHit s = item.GetComponent<SetIsHit>();
-                insItemList.Add(itemNo, item);
-                s.IdNo = itemNo;
-                itemNo++;
+                Item it = item.GetComponent<Item>();
+                insItemList.Add(itemIdNo, item);
+                it.IdNo = itemIdNo;
+                itemIdNo++;
             }
 
         }
@@ -231,16 +237,29 @@ public class GameCon : MonoBehaviour
         sP.Player = insPlayer;
     }
 
-    public float GameTime()//実時間取得
+    public float GameTime()//残時間
     {
-        time += Time.deltaTime;
-        return time;
+        float f = gameTime - time;
+        if (f < 0)
+        {
+            f = 0;
+        }
+        return f;
+    }
+    
+    bool TimePlus()
+    {
+        if (GameTime() > 0)
+        {
+            gameTime += timePlus;
+            return true;
+        }
+        return false;
     }
     void ConsoleTime()//Debug用　コンソールに経過時間表示
     {
         if (time - consoleTime >= 1)
         {
-            Debug.Log(time + "秒");
             consoleTime = time;
         }
     }
@@ -251,31 +270,33 @@ public class GameCon : MonoBehaviour
 
     void EnemyHit()
     {
-        if(insEnemyList != null && insEnemyList.Count != 0)
+        if (insEnemyList != null && insEnemyList.Count != 0 && charCon.EnemyNo == 0)
         {
-            Dictionary<int, GameObject> cpList = new Dictionary<int, GameObject>();
-            foreach (int j in insEnemyList.Keys)
-            {
-                cpList.Add(j, insEnemyList[j]);
-            }
-            Debug.Log(insEnemyList);
+            int j = 0;
+            bool b = false;
             foreach (int i in insEnemyList.Keys)
             {
                 GameObject g = insEnemyList[i];
+                Debug.Log("SetIsHit:" + g);
                 SetIsHit h = g.GetComponent<SetIsHit>();
                 if (h.IsHit == true)
                 {
-                    Debug.Log("EnemyIsHit");
-                    charCon.IsStun = true;
-                    charCon.HitAction();
-                    EnemyRemove(i);
+                    b = true;
+                    j = i;
                 }
+            }
+            if (b)
+            {
+                Debug.Log("EnemyIsHit");
+                charCon.IsStun = true;
+                charCon.HitAction();
+                EnemyRemove(j);
             }
         }
     }
     public void ItemHit()
     {
-        if (insItemList != null && insItemList.Count != 0)
+        if (insItemList != null && insItemList.Count != 0 && charCon.ItemNo == 0)
         {
             Dictionary<int, GameObject> cpList = new Dictionary<int, GameObject>();
             foreach(int j in insItemList.Keys)
@@ -286,21 +307,26 @@ public class GameCon : MonoBehaviour
             {
                 GameObject item = insItemList[j];
                 Item i = item.GetComponent<Item>();
-                SetIsHit h = item.GetComponent<SetIsHit>();
-                if (h.IsHit == true)
+                if (i.IsHit == true)
                 {
-                    h.IsHit = false;
+                    i.IsHit = false;
                     switch (i.ItemNo)
                     {
                         case 0:
                             if (charCon.LifeUp())
                             {
-                                Debug.Log("ItemIsHit");
+                                Debug.Log("ItemIsHit:LifeUp");
                                 ItemRemove(j);
                                 i.ThisDestroy();
                             }
                             break;
                         case 1:
+                            if (TimePlus())
+                            {
+                                Debug.Log("ItemIsHit:TimePlus");
+                                ItemRemove(j);
+                                i.ThisDestroy();
+                            }
                             break;
                         default:
                             break;
@@ -349,13 +375,42 @@ public class GameCon : MonoBehaviour
         }
 
     }
+    void AllRemove()
+    {
+        if(insEnemyList != null && insEnemyList.Count > 0)
+        {
+            List<int> list = new List<int>();
+            foreach (int i in insEnemyList.Keys)
+            {
+                list.Add(i);
+            }
+            foreach(int i in list)
+            {
+                EnemyRemove(i);
+            }
+        }
+        if(insItemList != null && insItemList.Count > 0)
+        {
+            List<int> list = new List<int>();
+            foreach(int i in insItemList.Keys)
+            {
+                list.Add(i);
+            }
+            foreach(int i in list)
+            {
+                ItemRemove(i);
+            }
+        }
+    }
     void Goal()
     {
-        if (charCon.GetIsGoal())
+        if (goalCheck && charCon.GetIsGoal())
         {
             Debug.Log("GameCon_Goal:" + charCon.GetIsGoal());
+            AllRemove();
             goalEffect.OnEffect();
             charCon.StartGoalAnim();
+            goalCheck = false;
         }
     }
     void GameOver()

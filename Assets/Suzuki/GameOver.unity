@@ -8040,7 +8040,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 243303255567298752, guid: 8f0fa83c97a1f8e4ebf9dc4d77f8b696,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 8d88783da1c204ab2b2fb8fb74aa13c5, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1

@@ -47,7 +47,7 @@ public class BgmManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!onPlay)     //GameConから干渉
+        if(!onPlay)     //TitleControllerとCanvasControllerから干渉
         {
             gameObject.SetActive(false);
             mInstance = null;

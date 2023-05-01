@@ -43,6 +43,7 @@ public class CharCon_Y : MonoBehaviour
     {
         cc = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        life = PlayerPrefs.GetInt("lifeScore");
 
     }
 
@@ -120,6 +121,11 @@ public class CharCon_Y : MonoBehaviour
         string str = "Life:" + (defaultLife - life) + "/" + defaultLife;
         Debug.Log(str);
         return defaultLife - life;
+    }
+    public int CharLife
+    {
+        get => this.life;
+        set => this.life = value;
     }
     public int DefaultLife()
     {

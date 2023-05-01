@@ -23,6 +23,10 @@ public class GameCon : MonoBehaviour
     [SerializeField] float insPosiY_Goal;
     [SerializeField] float gameTime = 30;
     [SerializeField] float timePlus = 15;
+    [SerializeField] bool isGoal = false;
+    [SerializeField] bool isGameOver = false;
+
+    int stageScore = 0;
     float time;
     float consoleTime = 0;//デバッグ用
     GameObject insPlayer;
@@ -39,6 +43,7 @@ public class GameCon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         if(mazeMake != null)
         {
             Debug.Log("mapsize"+mazeMake.MapSize);
@@ -47,6 +52,18 @@ public class GameCon : MonoBehaviour
         else
         {
             Debug.Log("mazeMake null");
+        }
+        if(PlayerPrefs.GetInt("stageScore") != 0)
+        {
+            if (PlayerPrefs.GetFloat("timeScore") > gameTime)
+            {
+                gameTime = PlayerPrefs.GetFloat("timeScore");
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetInt("lifeScore", 0);
+            PlayerPrefs.SetFloat("timeScore", 30);
         }
         InsPlayer();
         insEnemyList = new Dictionary<int, GameObject>();
@@ -82,8 +99,18 @@ public class GameCon : MonoBehaviour
 
     Vector3 ObjectPosition(int mapSize,float y)//プレイヤー、エネミーのポジションを設定
     {
-        int x = Random.Range(0, (mapSize + 1) / 2) * 2 + startPosiOffset_x;
-        int z = Random.Range(0, (mapSize + 1) / 2) * 2 + startPosiOffset_z;
+        int x = 0;
+        int z = 0;
+        while (true)
+        {
+
+            x = Random.Range(0, (mapSize + 1) / 2) * 2 + startPosiOffset_x;
+            z = Random.Range(0, (mapSize + 1) / 2) * 2 + startPosiOffset_z;
+            if (x != 0 && z != 0)
+            {
+                break;
+            }
+        }
         Vector3 posi = new Vector3(x, y, z);
         return posi;
     }
@@ -413,6 +440,15 @@ public class GameCon : MonoBehaviour
     {
         if (goalCheck && charCon.GetIsGoal())
         {
+            stageScore++;
+            PlayerPrefs.SetInt("stageScore", stageScore);
+            if(PlayerPrefs.GetInt("stageScore") > PlayerPrefs.GetInt("highScore"))
+            {
+                PlayerPrefs.SetInt("highScore", stageScore);
+            }
+            PlayerPrefs.SetInt("lifeScore", charCon.CharLife);
+            PlayerPrefs.SetFloat("timeScore", GameTime());
+            IsGoal = true;
             Debug.Log("GameCon_Goal:" + charCon.GetIsGoal());
             AllRemove();
             goalEffect.OnEffect();
@@ -424,7 +460,21 @@ public class GameCon : MonoBehaviour
     {
         if (charCon.Life() >= charCon.DefaultLife())
         {
+            PlayerPrefs.SetInt("stageScore", 0);
+            PlayerPrefs.SetInt("lifeScore", 0);
+            PlayerPrefs.SetFloat("timeScore", 30);
+            IsGameOver = true;
             Debug.Log("GameCon_GameOver");
         }
+    }
+    public bool IsGoal
+    {
+        get => this.isGoal;
+        set => this.isGoal = value;
+    }
+    public bool IsGameOver
+    {
+        get => this.isGameOver;
+        set => this.isGameOver = value;
     }
 }

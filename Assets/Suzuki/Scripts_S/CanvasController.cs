@@ -41,6 +41,7 @@ public class CanvasController : MonoBehaviour
         {
             mainText.text = "GameOver...";
             mainText.color = new Color(0, 0, 0, 1);
+            a_flag = false;
 
             BgmManager.Instance.GetComponent<BgmManager>().OnPlay = false;
             BgmManager.Instance.SetActive(false);

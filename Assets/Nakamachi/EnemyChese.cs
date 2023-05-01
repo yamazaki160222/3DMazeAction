@@ -46,6 +46,17 @@ public class EnemyChese : MonoBehaviour
 
     IEnumerator CheckDist()//コルーチン処理
     {
+        for (int i = 0; i < 4; i++)
+        {
+            Vector3 center = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+            Ray ray1 = new Ray(center, transform.forward);
+            RaycastHit hit1;
+            if (Physics.Raycast(ray1, out hit1, 1.0f))
+            {
+                string name = hit1.collider.gameObject.tag;
+                if (name == "Wall") { transform.Rotate(0, 90.0f, 0, Space.World); }
+            }
+        } 
 
         while (true)
         {

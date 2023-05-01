@@ -1187,9 +1187,10 @@ GameObject:
   m_Component:
   - component: {fileID: 328376867}
   - component: {fileID: 328376865}
+  - component: {fileID: 328376868}
   - component: {fileID: 328376866}
   m_Layer: 0
-  m_Name: TitleController
+  m_Name: GameOverController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1202,7 +1203,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 328376864}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80e1cdb1975616543a1f703a13f961b4, type: 3}
   m_Name: 
@@ -1220,7 +1221,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243490346522391876, guid: 8f0fa83c97a1f8e4ebf9dc4d77f8b696,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 9aeaae9fe34294864928c76943558f74, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d6b3ded510f844204a9f62001cece7d6, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1320,6 +1321,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &328376868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328376864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 186e81512c0c57b4ea6a144635f8dcd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleNejiko: {fileID: 571875562}
+  titleWalls: {fileID: 953521211}
+  leftText: {fileID: 1346635554}
+  rightText: {fileID: 1415416802}
+  scoreText: {fileID: 349265644}
 --- !u!1001 &349262339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5335,7 +5353,7 @@ GameObject:
   - component: {fileID: 1346635555}
   - component: {fileID: 1346635554}
   m_Layer: 5
-  m_Name: TitleText
+  m_Name: LeftText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5391,7 +5409,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 3D MAZE ACTION
+  m_Text: "TANKYOU\nFOR \nPLAYING"
 --- !u!222 &1346635555
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5681,7 +5699,7 @@ GameObject:
   - component: {fileID: 1415416803}
   - component: {fileID: 1415416802}
   m_Layer: 5
-  m_Name: ExplainText
+  m_Name: RightText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5738,7 +5756,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u2606\u30EB\u30FC\u30EB\u2606\n\u8FEB\u308A\u304F\u308BTofu\u3084Mofumoroid\u3001\n\u6B69\u304D\u56DE\u308BRobo\u3092\u3088\u3051\u3066\n\u5236\u9650\u6642\u9593\u5185\u306B\u30B4\u30FC\u30EB\u3092\u76EE\u6307\u305D\u3046\uFF01\n\u30AF\u30EA\u30A2\u3067\u304D\u305F\u30B9\u30C6\u30FC\u30B8\u6570\u304C\u30B9\u30B3\u30A2\u306B\u306A\u308A\u307E\u3059\u3002\n\n\n\u2606\u64CD\u4F5C\u8AAC\u660E\u2606\n\u30FB\u5341\u5B57\u30AD\u30FC\u3067\u306D\u3058\u5B50\u304C\u52D5\u304D\u56DE\u308A\u307E\u3059\n\u30FB\u30B9\u30DA\u30FC\u30B9\u30AD\u30FC\u3067\u30B8\u30E3\u30F3\u30D7\u3057\u307E\u3059\n\u30FB\u30A2\u30A4\u30C6\u30E0\u306B\u89E6\u308C\u308B\u3053\u3068\u3067\u3067\u30E9\u30A4\u30D5\u3068\u6642\u9593\u304C\u56DE\u5FA9\u3067\u304D\u307E\u3059\n\uFF08MAX\u306E\u6642\u306F\u53D6\u5F97\u3067\u304D\u307E\u305B\u3093\uFF09"
+  m_Text: "\u5236\u4F5C\u8005\uFF0850\u97F3\u9806\uFF09\n\n\u9234\u6728\n\u4E2D\u753A\n\u5C71\u5D0E"
 --- !u!222 &1415416803
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8133,6 +8151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1f3b7a3bbb10449a43623d24a69ff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onPlay: 0
 --- !u!1 &2004566240
 GameObject:
   m_ObjectHideFlags: 0

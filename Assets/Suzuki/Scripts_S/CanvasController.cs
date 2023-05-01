@@ -22,6 +22,8 @@ public class CanvasController : MonoBehaviour
     void Start()
     {
         BgmManager.Instance.GetComponent<BgmManager>().OnPlay = true;
+        BgmManager.Instance.GetComponent<AudioSource>().Play();
+
         gameCon = mainCam.GetComponent<GameCon>();
         player = mainCam.GetComponent<CameraCon>().charaLookAtPosition.gameObject;
         charCon_Y = player.GetComponent<CharCon_Y>();
@@ -35,7 +37,17 @@ public class CanvasController : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        if (charCon_Y.GetIsGoal() == true)
+        if (charCon_Y.GetIsGameOver())
+        {
+            mainText.text = "GameOver...";
+            mainText.color = new Color(0, 0, 0, 1);
+
+            BgmManager.Instance.GetComponent<BgmManager>().OnPlay = false;
+            BgmManager.Instance.SetActive(false);
+            Invoke("LoadScene", 3f);
+        }
+
+        if (charCon_Y.GetIsGoal())
         {
             mainText.text = "Congratulations!!\n\nEnter to NextStage";
             mainText.color = new Color(0, 0, 0, 1);
@@ -88,6 +100,10 @@ public class CanvasController : MonoBehaviour
                 a_flag = false;
             }
         }
+    }
+    void LoadScene()
+    {
+        SceneManager.LoadScene("GameOver");
     }
 
     /*

@@ -2608,6 +2608,7 @@ GameObject:
   m_Component:
   - component: {fileID: 643413604}
   - component: {fileID: 643413603}
+  - component: {fileID: 643413605}
   m_Layer: 0
   m_Name: BGM
   m_TagString: Untagged
@@ -2627,7 +2628,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 243303255567298752, guid: 8f0fa83c97a1f8e4ebf9dc4d77f8b696,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 8d88783da1c204ab2b2fb8fb74aa13c5, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -2726,6 +2727,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &643413605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643413602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc1f3b7a3bbb10449a43623d24a69ff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onPlay: 0
 --- !u!1 &692393280
 GameObject:
   m_ObjectHideFlags: 0
@@ -4259,7 +4273,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1039638377
 AudioSource:
@@ -5955,7 +5969,7 @@ RectTransform:
   - {fileID: 1919360321}
   - {fileID: 128581339}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7010,7 +7024,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1755750786
 PrefabInstance:
@@ -7434,7 +7448,7 @@ Transform:
   - {fileID: 433162248}
   - {fileID: 2038155360}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1823494250
 PrefabInstance:

@@ -5,8 +5,11 @@ using UnityEngine;
 public class SeManager : MonoBehaviour
 {
     [SerializeField] bool playFlg;
+    [SerializeField] bool isEneSe;
+    [SerializeField] bool isGoalSe;
 
-    AudioSource se;
+    //AudioSource se;
+    AudioClip se;
     GameObject parent;
     SetIsHit eneSc;
     Goal goalSc;
@@ -14,21 +17,25 @@ public class SeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        se = GetComponent<AudioSource>();
+        //se = GetComponent<AudioSource>();
+        se = GetComponent<AudioSource>().clip;
 
         parent = transform.parent.gameObject;
+        /*
         if (parent.CompareTag("Enemy"))
         {
+            isEneSe = true;
             eneSc = parent.GetComponent<SetIsHit>();
             Debug.Log("eneScセット");
-            goalSc = null;
+            //goalSc = null;
             //playFlg = eneSc.IsHit;
         }
-        else if(parent.CompareTag("Goal"))
+        else*/ if (parent.CompareTag("Goal"))
         {
+            isGoalSe = true;
             goalSc = parent.GetComponent<Goal>();
             Debug.Log("goalScセット");
-            eneSc = null;
+            //eneSc = null;
             //playFlg = goalSc.endFlg;
         }
     }
@@ -36,24 +43,33 @@ public class SeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(eneSc.IsHit || goalSc.endFlg)
-        /*
-        if (eneSc.IsHit)
+        if (isEneSe)
         {
-            playFlg = true;
+            if (eneSc.IsHit)
+            {
+                playFlg = true;
+                //if (playFlg)
+                //{
+                Debug.Log("再生します");
+                AudioSource.PlayClipAtPoint(se, transform.position);
+                playFlg = false;
+                //} 
+            }
         }
-        */
-
-        if (goalSc.endFlg)
+        else if (isGoalSe)
         {
-            playFlg = true;
-            se.Play();
+            if (goalSc.endFlg)
+            {
+                playFlg = true;
+                //if (playFlg)
+                //{
+                Debug.Log("再生します");
+                //GetComponent<AudioSource>().Play();
+                AudioSource.PlayClipAtPoint(se, transform.position);
+                playFlg = false;
+                Destroy(gameObject);
+                //}
+            }
         }
-        /*
-        if (playFlg)
-        {
-            se.Play();
-        }
-        */
     }
 }

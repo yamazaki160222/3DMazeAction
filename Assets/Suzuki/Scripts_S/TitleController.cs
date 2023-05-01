@@ -9,13 +9,13 @@ public class TitleController : MonoBehaviour
     public GameObject titleNejiko;
     public GameObject titleWalls;
     
-    AudioSource bgm;
+    AudioSource se;
 
     // Start is called before the first frame update
     void Start()
     {
         GetChildren(titleWalls);
-        bgm = GetComponent<AudioSource>();
+        se = GetComponent<AudioSource>();
     }
 
     void GetChildren(GameObject obj)
@@ -40,12 +40,14 @@ public class TitleController : MonoBehaviour
 
     public void OnStartButtonClicked()
     {
-        bgm.Play();
+        se.Play();
         Invoke("LoadScene", 0.5f);
+
     }
 
     void LoadScene()
     {
+        BgmManager.Instance.GetComponent<BgmManager>().OnPlay = false;
         SceneManager.LoadScene("Stage1Kai");
     }
 

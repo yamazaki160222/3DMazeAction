@@ -21,6 +21,7 @@ public class CanvasController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        BgmManager.Instance.GetComponent<BgmManager>().OnPlay = true;
         gameCon = mainCam.GetComponent<GameCon>();
         player = mainCam.GetComponent<CameraCon>().charaLookAtPosition.gameObject;
         charCon_Y = player.GetComponent<CharCon_Y>();
@@ -36,7 +37,7 @@ public class CanvasController : MonoBehaviour
     { 
         if (charCon_Y.GetIsGoal() == true)
         {
-            mainText.text = "Congratulations!!\n\nTap to NextStage";
+            mainText.text = "Congratulations!!\n\nEnter to NextStage";
             mainText.color = new Color(0, 0, 0, 1);
 
             if (Input.GetKey(KeyCode.Return))

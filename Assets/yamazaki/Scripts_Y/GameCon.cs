@@ -38,6 +38,7 @@ public class GameCon : MonoBehaviour
     int itemIdNo = 1;
     CharCon_Y  charCon;
     bool goalCheck;
+    bool isPosi = true;
 
 
 
@@ -49,7 +50,7 @@ public class GameCon : MonoBehaviour
         {
             pSpawn = playerSpawn.GetComponent<Transform>();
         }
-        
+        /*
         if(mazeMake != null)
         {
             Debug.Log("mapsize"+mazeMake.MapSize);
@@ -59,6 +60,7 @@ public class GameCon : MonoBehaviour
         {
             Debug.Log("mazeMake null");
         }
+        */
         if(PlayerPrefs.GetInt("stageScore") != 0)
         {
             stageScore = PlayerPrefs.GetInt("stageScore");
@@ -74,13 +76,11 @@ public class GameCon : MonoBehaviour
             PlayerPrefs.SetInt("lifeScore", 0);
             PlayerPrefs.SetFloat("timeScore", 30);
         }
-        InsPlayer();
-        if (insPlayer.transform.position.x == 0 && insPlayer.transform.position.z == 0)
-        {
-            insPlayer.transform.position = new Vector3(1, 0, 1);
-        }
         insEnemyList = new Dictionary<int, GameObject>();
         insItemList = new Dictionary<int, GameObject>();
+        InsPlayer();
+        cameraCon.setTransform(insPlayer.transform);//メインカメラにプレイヤーポジションをセット
+        charCon = insPlayer.GetComponent<CharCon_Y>();//charConにキャラクターコントローラーを代入
         InsGoal();//ゴール生成
         InsEnemy();//エネミー生成
         InsItem(0, 0.5f);//(List items no,出現位置(高さ))
@@ -90,17 +90,28 @@ public class GameCon : MonoBehaviour
         {
             Debug.Log(insPosiCheck(0));
         }*/
-        Debug.Log(insEnemyList);
-        Debug.Log(insItemList);
+        //Debug.Log(insEnemyList);
+        //Debug.Log(insItemList);
         goalCheck = true;
-        
-        Debug.Log("Start()終了");
-
+        /*
+        if (insPlayer.transform.position.x <= 0.7 && insPlayer.transform.position.z <= 0.7)
+        {
+            insPlayer.transform.position = new Vector3(1, 0, 1);
+        }
+        */
+        //Debug.Log("Start()終了");
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
+        if(isPosi && (insPlayer.transform.position.x <= 0.7 || insPlayer.transform.position.z <= 0.7))
+        {
+            insPlayer.transform.position = new Vector3(1, 0, 1);
+            isPosi = false;
+        }
+        */
         EnemyHit();
         ItemHit();
         RemoveCheck();
@@ -175,10 +186,9 @@ public class GameCon : MonoBehaviour
             {
                 insPlayer = Instantiate(player);
             }
-            insPlayer.transform.position = ObjectPosition(mapSize, insPosiY_Player);//プレイヤーポジション設定
+            Vector3 posi = ObjectPosition(7, insPosiY_Player);//プレイヤーポジション設定
             insPlayer.transform.eulerAngles = ObjectRotation();
-            cameraCon.setTransform(insPlayer.transform);//メインカメラにプレイヤーポジションをセット
-            charCon = insPlayer.GetComponent<CharCon_Y>();//charConにキャラクターコントローラーを代入
+            insPlayer.transform.position = posi;
         }
         else
         {
@@ -196,9 +206,7 @@ public class GameCon : MonoBehaviour
             if (posi.x > insPlayer.transform.position.x + 2 || posi.x < insPlayer.transform.position.x - 2)
             {
                 if (posi.z > insPlayer.transform.position.z + 2 || posi.z < insPlayer.transform.position.z - 2)
-                {
                     break;
-                }
             }
         }
         insGoal.transform.position = posi;
@@ -494,7 +502,7 @@ public class GameCon : MonoBehaviour
     {
         if (charCon.Life() <= 0 || GameTime() <= 0)
         {
-            PlayerPrefs.SetInt("stageScore", 0);
+            //PlayerPrefs.SetInt("stageScore", 0);
             PlayerPrefs.SetInt("lifeScore", 0);
             PlayerPrefs.SetFloat("timeScore", 30);
             charCon.IsGameOver = true;

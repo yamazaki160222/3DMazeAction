@@ -94,14 +94,15 @@ public class GameCon : MonoBehaviour
         ItemHit();
         RemoveCheck();
         time += Time.deltaTime;
-        Debug.Log((int)(gameTime - time) + "秒");
         GameTime();
-        ConsoleTime();//デバッグ用
+        //ConsoleTime();//デバッグ用
         Goal();
-        Debug.Log("highScore:"+PlayerPrefs.GetInt("highScore"));
-        Debug.Log("stageScore:" + PlayerPrefs.GetInt("stageScore"));
-        Debug.Log("lifeScore:" + PlayerPrefs.GetInt("lifeScore"));
-        Debug.Log("timeScore:" + PlayerPrefs.GetFloat("timeScore"));
+        Debug.Log("Time"+GameTime()+"秒");
+        GameOver();
+        //Debug.Log("highScore:"+PlayerPrefs.GetInt("highScore"));//デバッグ用
+        //Debug.Log("stageScore:" + PlayerPrefs.GetInt("stageScore"));//デバッグ用
+        //Debug.Log("lifeScore:" + PlayerPrefs.GetInt("lifeScore"));//デバッグ用
+        //Debug.Log("timeScore:" + PlayerPrefs.GetFloat("timeScore"));//デバッグ用
 
     }
 
@@ -359,7 +360,7 @@ public class GameCon : MonoBehaviour
                             {
                                 Debug.Log("ItemIsHit:LifeUp");
                                 ItemRemove(j);
-                                i.ThisDestroy();
+                                //i.ThisDestroy();
                             }
                             break;
                         case 1:
@@ -367,7 +368,7 @@ public class GameCon : MonoBehaviour
                             {
                                 Debug.Log("ItemIsHit:TimePlus");
                                 ItemRemove(j);
-                                i.ThisDestroy();
+                                //i.ThisDestroy();
                             }
                             break;
                         default:
@@ -409,6 +410,7 @@ public class GameCon : MonoBehaviour
         GameObject g = insItemList[i].gameObject;
         if (insItemList.Remove(i))
         {
+            AudioSource.PlayClipAtPoint(g.GetComponent<AudioSource>().clip, g.transform.position);
             Destroy(g);
             Debug.Log("ItemRemove:true");
         }
@@ -467,7 +469,7 @@ public class GameCon : MonoBehaviour
     }
     void GameOver()
     {
-        if (charCon.Life() >= charCon.DefaultLife())
+        if (charCon.Life() <= 0 || GameTime() <= 0)
         {
             PlayerPrefs.SetInt("stageScore", 0);
             PlayerPrefs.SetInt("lifeScore", 0);

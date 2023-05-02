@@ -177,10 +177,6 @@ public class CharCon_Y : MonoBehaviour
     {
         return isGameOver;
     }
-    public void SetIsGameOver(bool b)
-    {
-        isGameOver = b;
-    }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -226,7 +222,7 @@ public class CharCon_Y : MonoBehaviour
     public void StartGoalAnim()
     {
         Debug.Log("StartGoalAnim");
-        StartCoroutine("GoalAnim");
+        //StartCoroutine("GoalAnim");
     }
     IEnumerator GoalAnim()
     {

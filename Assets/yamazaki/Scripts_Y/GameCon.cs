@@ -24,6 +24,8 @@ public class GameCon : MonoBehaviour
     [SerializeField] float gameTime = 30;
     [SerializeField] float timePlus = 15;
     [SerializeField] bool isGoal = false;
+    [SerializeField] GameObject playerSpawn;//プレイヤー位置0,0問題対応
+    Transform pSpawn;
 
     int stageScore = 0;
     float time;
@@ -43,6 +45,10 @@ public class GameCon : MonoBehaviour
     void Start()
     {
         Debug.Log("Start()stageScore:" + PlayerPrefs.GetInt("stageScore"));
+        if (pSpawn != null)
+        {
+            pSpawn = playerSpawn.GetComponent<Transform>();
+        }
         
         if(mazeMake != null)
         {
@@ -69,6 +75,10 @@ public class GameCon : MonoBehaviour
             PlayerPrefs.SetFloat("timeScore", 30);
         }
         InsPlayer();
+        if (insPlayer.transform.position.x == 0 && insPlayer.transform.position.z == 0)
+        {
+            insPlayer.transform.position = new Vector3(1, 0, 1);
+        }
         insEnemyList = new Dictionary<int, GameObject>();
         insItemList = new Dictionary<int, GameObject>();
         InsGoal();//ゴール生成
@@ -83,6 +93,7 @@ public class GameCon : MonoBehaviour
         Debug.Log(insEnemyList);
         Debug.Log(insItemList);
         goalCheck = true;
+        
         Debug.Log("Start()終了");
 
     }
@@ -93,15 +104,20 @@ public class GameCon : MonoBehaviour
         EnemyHit();
         ItemHit();
         RemoveCheck();
-        time += Time.deltaTime;
-        Debug.Log((int)(gameTime - time) + "秒");
-        GameTime();
-        ConsoleTime();//デバッグ用
         Goal();
-        Debug.Log("highScore:"+PlayerPrefs.GetInt("highScore"));
-        Debug.Log("stageScore:" + PlayerPrefs.GetInt("stageScore"));
-        Debug.Log("lifeScore:" + PlayerPrefs.GetInt("lifeScore"));
-        Debug.Log("timeScore:" + PlayerPrefs.GetFloat("timeScore"));
+        //GameTime();
+        if (!IsGoal)
+        {
+            time += Time.deltaTime;
+            //ConsoleTime();//デバッグ用
+            Debug.Log("Time" + GameTime() + "秒");
+            GameOver();
+
+        }
+        //Debug.Log("highScore:"+PlayerPrefs.GetInt("highScore"));//デバッグ用
+        //Debug.Log("stageScore:" + PlayerPrefs.GetInt("stageScore"));//デバッグ用
+        //Debug.Log("lifeScore:" + PlayerPrefs.GetInt("lifeScore"));//デバッグ用
+        //Debug.Log("timeScore:" + PlayerPrefs.GetFloat("timeScore"));//デバッグ用
 
     }
 
@@ -150,7 +166,15 @@ public class GameCon : MonoBehaviour
     {
         if (player != null)
         {
-            insPlayer = Instantiate(player);//プレイヤー生成
+            if (pSpawn != null)//プレイヤー生成
+            {
+                insPlayer = Instantiate(player, pSpawn);
+                insPlayer.transform.position = pSpawn.transform.position;
+            }
+            else
+            {
+                insPlayer = Instantiate(player);
+            }
             insPlayer.transform.position = ObjectPosition(mapSize, insPosiY_Player);//プレイヤーポジション設定
             insPlayer.transform.eulerAngles = ObjectRotation();
             cameraCon.setTransform(insPlayer.transform);//メインカメラにプレイヤーポジションをセット
@@ -359,7 +383,7 @@ public class GameCon : MonoBehaviour
                             {
                                 Debug.Log("ItemIsHit:LifeUp");
                                 ItemRemove(j);
-                                i.ThisDestroy();
+                                //i.ThisDestroy();
                             }
                             break;
                         case 1:
@@ -367,7 +391,7 @@ public class GameCon : MonoBehaviour
                             {
                                 Debug.Log("ItemIsHit:TimePlus");
                                 ItemRemove(j);
-                                i.ThisDestroy();
+                                //i.ThisDestroy();
                             }
                             break;
                         default:
@@ -409,6 +433,7 @@ public class GameCon : MonoBehaviour
         GameObject g = insItemList[i].gameObject;
         if (insItemList.Remove(i))
         {
+            AudioSource.PlayClipAtPoint(g.GetComponent<AudioSource>().clip, g.transform.position);
             Destroy(g);
             Debug.Log("ItemRemove:true");
         }
@@ -467,7 +492,7 @@ public class GameCon : MonoBehaviour
     }
     void GameOver()
     {
-        if (charCon.Life() >= charCon.DefaultLife())
+        if (charCon.Life() <= 0 || GameTime() <= 0)
         {
             PlayerPrefs.SetInt("stageScore", 0);
             PlayerPrefs.SetInt("lifeScore", 0);

@@ -48,6 +48,10 @@ public class CanvasController : MonoBehaviour
             mainText.color = new Color(0, 0, 0, 1);
             a_flag = false;
 
+            if (PlayerPrefs.GetInt("highScore") < PlayerPrefs.GetInt("stageScore") -1)
+            {
+                PlayerPrefs.SetInt("highScore", PlayerPrefs.GetInt("stageScore") - 1);
+            }
             BgmManager.Instance.GetComponent<BgmManager>().OnPlay = false;
             Invoke("LoadScene", 3f);
         }

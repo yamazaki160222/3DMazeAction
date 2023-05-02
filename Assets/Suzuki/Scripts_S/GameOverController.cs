@@ -22,12 +22,12 @@ public class GameOverController : MonoBehaviour
         GetChildren(titleWalls);
 
         BgmManager.Instance.GetComponent<BgmManager>().OnPlay = true;
-        //BgmManager.Instance.SetActive(true);
+        BgmManager.Instance.SetActive(true);
         BgmManager.Instance.GetComponent<AudioSource>().Play();
 
         titleNejiko.GetComponent<Animator>().SetBool("gameOver", true);
         se = GetComponent<AudioSource>();
-        scoreText.text = "Score : " + PlayerPrefs.GetInt("stageScore") + " Stage";
+        scoreText.text = "Score : " + (PlayerPrefs.GetInt("stageScore") -1) + " Stage";
 
     }
 

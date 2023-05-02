@@ -1223,7 +1223,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 243490346522391876, guid: 8f0fa83c97a1f8e4ebf9dc4d77f8b696,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: d6b3ded510f844204a9f62001cece7d6, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -5669,7 +5669,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 18
+    m_FontSize: 25
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -5680,7 +5680,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5236\u4F5C\u8005\uFF0850\u97F3\u9806\uFF09\n\n\u9234\u6728\n\u4E2D\u753A\n\u5C71\u5D0E"
+  m_Text: "\u5236\u4F5C\u8005\uFF0850\u97F3\u9806\uFF09\n\n\u9234\u6728\n\u4E2D\u753A\n\u5C71\u5D0E\n\n\n\n\n\u25BC\u30A8\u30F3\u30BF\u30FC\u30AD\u30FC\u62BC\u4E0B\u3067\n\u3000\u30BF\u30A4\u30C8\u30EB\u306B\u623B\u308C\u307E\u3059\u3002"
 --- !u!222 &1415416803
 CanvasRenderer:
   m_ObjectHideFlags: 0

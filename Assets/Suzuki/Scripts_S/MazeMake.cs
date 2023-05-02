@@ -35,8 +35,17 @@ public class MazeMake : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		// マップ生成終了条件を算出(マップ内で通路が置ける場所-1)
-		int endNum = ((mapSize + 1) / 2) * ((mapSize + 1) / 2) - 1;
+		if (PlayerPrefs.GetFloat("timeScore") > 60.0f)
+        {
+			MapSize = 11;
+        }
+		else if (PlayerPrefs.GetFloat("timeScore") > 40.0f)
+        {
+			MapSize = 9;
+        }
+
+			// マップ生成終了条件を算出(マップ内で通路が置ける場所-1)
+			int endNum = ((mapSize + 1) / 2) * ((mapSize + 1) / 2) - 1;
 
 		maze = new int[mapSize + 2, mapSize + 2];
 

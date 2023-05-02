@@ -27,6 +27,8 @@ public class GameOverController : MonoBehaviour
 
         titleNejiko.GetComponent<Animator>().SetBool("gameOver", true);
         se = GetComponent<AudioSource>();
+        scoreText.text = "Score : " + PlayerPrefs.GetInt("stageScore") + " Stage";
+
     }
 
     void GetChildren(GameObject obj)

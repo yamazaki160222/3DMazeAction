@@ -8,7 +8,8 @@ public class TitleController : MonoBehaviour
 {
     public GameObject titleNejiko;
     public GameObject titleWalls;
-    
+    public Text scoreText;
+
     AudioSource se;
 
     // Start is called before the first frame update
@@ -19,6 +20,8 @@ public class TitleController : MonoBehaviour
 
         GetChildren(titleWalls);
         se = GetComponent<AudioSource>();
+        PlayerPrefs.SetInt("stageScore", 0);
+        scoreText.text = "HighScore : " + PlayerPrefs.GetInt("highScore") +" Stage";
     }
 
     void GetChildren(GameObject obj)

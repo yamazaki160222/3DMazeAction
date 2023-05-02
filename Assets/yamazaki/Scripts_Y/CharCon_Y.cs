@@ -14,12 +14,12 @@ public class CharCon_Y : MonoBehaviour
     public float backSpeed = 0.5f;
     public float knockBack;
     public float stunDuration = 0.5f;
+    public bool isGameOver = false;
 
     [SerializeField] int defaultLife = 3;
     [SerializeField] float recoverTime = 0.0f;
     [SerializeField] bool isStun = false;
     [SerializeField] bool isGoal = false;
-    [SerializeField] bool isGameOver = false;
     [SerializeField] int enemyNo;
     [SerializeField] int itemNo;
 
@@ -246,5 +246,10 @@ public class CharCon_Y : MonoBehaviour
         }
         animator.SetBool("goal", false);
         SetIsGoal(false);
+    }
+    public bool IsGameOver
+    {
+        get => this.isGameOver;
+        set => this.isGameOver = value;
     }
 }

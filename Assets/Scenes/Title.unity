@@ -2628,7 +2628,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 243303255567298752, guid: 8f0fa83c97a1f8e4ebf9dc4d77f8b696,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 8d88783da1c204ab2b2fb8fb74aa13c5, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -4261,7 +4261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   titleNejiko: {fileID: 598153948}
   titleWalls: {fileID: 2038155359}
-  scoreText: {fileID: 1787016808}
+  scoreText: {fileID: 0}
 --- !u!4 &1039638376
 Transform:
   m_ObjectHideFlags: 0
@@ -7301,8 +7301,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 200, y: 50}
-  m_SizeDelta: {x: 300, y: 50}
+  m_AnchoredPosition: {x: 150, y: 50}
+  m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1787016808
 MonoBehaviour:
@@ -7335,7 +7335,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'HighScore : 0 Stage'
+  m_Text: HighScore:0 Stage
 --- !u!222 &1787016809
 CanvasRenderer:
   m_ObjectHideFlags: 0

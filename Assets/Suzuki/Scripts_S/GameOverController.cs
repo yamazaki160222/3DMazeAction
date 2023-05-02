@@ -8,8 +8,6 @@ public class GameOverController : MonoBehaviour
 {
     public GameObject titleNejiko;
     public GameObject titleWalls;
-
-    Animator nejikoAnim;
     AudioSource se;
 
     public Text leftText;
@@ -24,10 +22,13 @@ public class GameOverController : MonoBehaviour
         GetChildren(titleWalls);
 
         BgmManager.Instance.GetComponent<BgmManager>().OnPlay = true;
+        //BgmManager.Instance.SetActive(true);
         BgmManager.Instance.GetComponent<AudioSource>().Play();
 
         titleNejiko.GetComponent<Animator>().SetBool("gameOver", true);
         se = GetComponent<AudioSource>();
+        scoreText.text = "Score : " + PlayerPrefs.GetInt("stageScore") + " Stage";
+
     }
 
     void GetChildren(GameObject obj)

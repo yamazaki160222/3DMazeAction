@@ -50,7 +50,8 @@ public class BgmManager : MonoBehaviour
         if(!onPlay)     //TitleControllerとCanvasControllerから干渉
         {
             gameObject.SetActive(false);
-            mInstance = null;
+            // オーディオを停止します
+            GetComponent<AudioSource>().Stop();
         }
     }
 

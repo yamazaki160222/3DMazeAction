@@ -11,6 +11,7 @@ public class CanvasController : MonoBehaviour
     public Text timeText;
     public Text lifeText;
     public Text mainText;
+    public Text stageText;
 
     GameCon gameCon;
     CharCon_Y charCon_Y;
@@ -22,12 +23,16 @@ public class CanvasController : MonoBehaviour
     void Start()
     {
         BgmManager.Instance.GetComponent<BgmManager>().OnPlay = true;
+        BgmManager.Instance.SetActive(true);
         BgmManager.Instance.GetComponent<AudioSource>().Play();
 
         gameCon = mainCam.GetComponent<GameCon>();
         player = mainCam.GetComponent<CameraCon>().charaLookAtPosition.gameObject;
         charCon_Y = player.GetComponent<CharCon_Y>();
 
+        int stage = PlayerPrefs.GetInt("stageScore") + 1;
+        PlayerPrefs.SetInt("stageScore", stage);
+        stageText.text = "Stage" + stage;
         mainText.text = "Start!!";
         a_flag = true;
         a_color = 1;
@@ -44,7 +49,6 @@ public class CanvasController : MonoBehaviour
             a_flag = false;
 
             BgmManager.Instance.GetComponent<BgmManager>().OnPlay = false;
-            BgmManager.Instance.SetActive(false);
             Invoke("LoadScene", 3f);
         }
 

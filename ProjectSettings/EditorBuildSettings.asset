@@ -6,15 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Suzuki/Title.unity
+    path: Assets/Scenes/Title.unity
     guid: 43c37676f1bae70408868fe5d9c25bab
   - enabled: 1
     path: Assets/Scenes/Stage1Kai.unity
     guid: b389a2b7c664584489d4381ff4a604bc
   - enabled: 1
-    path: Assets/Suzuki/AutoMaze.unity
+    path: Assets/Scenes/AutoMaze.unity
     guid: 0b4b5b967e97d2f4e988ad8c5cfa2bfc
   - enabled: 1
-    path: Assets/Suzuki/GameOver.unity
+    path: Assets/Scenes/GameOver.unity
     guid: 8a4b7455f4c793c49979039a4534d02e
   m_configObjects: {}

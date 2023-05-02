@@ -62,7 +62,8 @@ public class EnemyChese : MonoBehaviour
                 string name = hit1.collider.gameObject.tag;
                 if (name == "Wall") { transform.Rotate(0, 90.0f, 0, Space.World); }
             }
-        } 
+        }
+        yield return new WaitForSeconds(3.0f);
 
         while (true)
         {

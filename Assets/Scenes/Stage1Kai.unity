@@ -4360,6 +4360,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1943122891074616877, guid: 349bcef1ea27c79458eb13f68ae59b4c,
         type: 3}
+    - target: {fileID: 1172696158, guid: 8ccd3d4c08060c243af810b6562eda99, type: 3}
+      propertyPath: startPosiOffset_x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1172696158, guid: 8ccd3d4c08060c243af810b6562eda99, type: 3}
+      propertyPath: startPosiOffset_z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1465415114262540940, guid: 8ccd3d4c08060c243af810b6562eda99,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -70,12 +70,14 @@ public class CanvasController : MonoBehaviour
         else
         {
             TextClear(a_flag);
+            //timeText.text = "Time:" + (int)PlayerPrefs.GetFloat("timeScore") + "秒";
+            //lifeText.text = "Life:" + PlayerPrefs.GetInt("lifeScore") + "/" + charCon_Y.DefaultLife();
             GetGameTime();
             GetLife();
         }
         
     }
-
+    
     void GetGameTime()//実時間取得
     {
         float time = gameCon.GameTime();
@@ -86,6 +88,7 @@ public class CanvasController : MonoBehaviour
             consoleTime = time;
         }
     }
+
     void GetLife()
     {
         int defaultLife = charCon_Y.DefaultLife();

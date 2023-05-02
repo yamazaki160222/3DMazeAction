@@ -24,7 +24,6 @@ public class GameCon : MonoBehaviour
     [SerializeField] float gameTime = 30;
     [SerializeField] float timePlus = 15;
     [SerializeField] bool isGoal = false;
-    [SerializeField] bool isGameOver = false;
 
     int stageScore = 0;
     float time;
@@ -43,6 +42,7 @@ public class GameCon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Start()stageScore:" + PlayerPrefs.GetInt("stageScore"));
         
         if(mazeMake != null)
         {
@@ -55,9 +55,12 @@ public class GameCon : MonoBehaviour
         }
         if(PlayerPrefs.GetInt("stageScore") != 0)
         {
-            if (PlayerPrefs.GetFloat("timeScore") > gameTime)
+            stageScore = PlayerPrefs.GetInt("stageScore");
+            gameTime = PlayerPrefs.GetFloat("timeScore");
+
+            if (gameTime < 30)
             {
-                gameTime = PlayerPrefs.GetFloat("timeScore");
+                gameTime = 30;
             }
         }
         else
@@ -95,6 +98,11 @@ public class GameCon : MonoBehaviour
         GameTime();
         ConsoleTime();//デバッグ用
         Goal();
+        Debug.Log("highScore:"+PlayerPrefs.GetInt("highScore"));
+        Debug.Log("stageScore:" + PlayerPrefs.GetInt("stageScore"));
+        Debug.Log("lifeScore:" + PlayerPrefs.GetInt("lifeScore"));
+        Debug.Log("timeScore:" + PlayerPrefs.GetFloat("timeScore"));
+
     }
 
     Vector3 ObjectPosition(int mapSize,float y)//プレイヤー、エネミーのポジションを設定
@@ -387,6 +395,7 @@ public class GameCon : MonoBehaviour
         GameObject g = insEnemyList[i].gameObject;
         if (insEnemyList.Remove(i))
         {
+            AudioSource.PlayClipAtPoint(g.GetComponent<AudioSource>().clip, g.transform.position);
             Destroy(g);
             Debug.Log("EnemyRemove:true");
         }
@@ -463,7 +472,7 @@ public class GameCon : MonoBehaviour
             PlayerPrefs.SetInt("stageScore", 0);
             PlayerPrefs.SetInt("lifeScore", 0);
             PlayerPrefs.SetFloat("timeScore", 30);
-            IsGameOver = true;
+            charCon.IsGameOver = true;
             Debug.Log("GameCon_GameOver");
         }
     }
@@ -471,10 +480,5 @@ public class GameCon : MonoBehaviour
     {
         get => this.isGoal;
         set => this.isGoal = value;
-    }
-    public bool IsGameOver
-    {
-        get => this.isGameOver;
-        set => this.isGameOver = value;
     }
 }
